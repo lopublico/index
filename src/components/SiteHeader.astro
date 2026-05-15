@@ -1,0 +1,129 @@
+---
+interface Props {
+  currentPath?: string;
+}
+const { currentPath = '/' } = Astro.props;
+
+const navLinks = [
+  { href: '/',             label: 'Inicio' },
+  { href: '/acerca',       label: 'Sobre Lo Público' },
+  { href: '/metodologia',  label: 'Metodología' },
+];
+---
+
+<header class="site-header">
+  <div class="site-brand">
+    <div class="brand-logo" aria-hidden="true">
+      <img src="/logos/logo0.jpg" alt="">
+    </div>
+    <span class="brand-text">
+      <a href="/" class="wordmark">Lo público<span class="wordmark__dot">.</span></a>
+      <span class="tagline">La Administración, en datos</span>
+    </span>
+  </div>
+
+  <nav class="site-nav" aria-label="Navegación principal">
+    {navLinks.map(link => (
+      <a
+        href={link.href}
+        class={`nav-link${currentPath === link.href ? ' nav-link--active' : ''}`}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 24px 0 20px;
+    position: relative;
+  }
+
+  .site-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .brand-text {
+    display: flex;
+    align-items: baseline;
+    gap: 34px;
+  }
+
+  .brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+
+  .wordmark {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: var(--fg);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .wordmark__dot { color: var(--fg); }
+
+  .tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-link {
+    color: var(--fg-2);
+    white-space: nowrap;
+    padding-bottom: 1px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 120ms, color 120ms;
+    text-decoration: none;
+  }
+  .nav-link:hover,
+  .nav-link--active {
+    color: var(--fg);
+    border-bottom-color: var(--fg);
+  }
+
+  /* ── Responsive ───────────────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .site-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 0 14px;
+    }
+    .tagline { display: none; }
+    .site-nav { gap: 16px; font-size: 11px; }
+  }
+</style>

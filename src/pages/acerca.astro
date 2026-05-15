@@ -1,0 +1,270 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import PageLogo from '../components/PageLogo.astro';
+---
+
+<Layout
+  title="Acerca — Lo público"
+  description="Lo público es un proyecto de la sociedad civil para hacer más visible lo que hacen las administraciones con el dinero y el tiempo de todos."
+>
+  <main class="page">
+
+    <SiteHeader currentPath="/acerca" />
+    <div class="rule rule--thin"></div>
+
+    <div class="inner-header">
+      <div class="section-eyebrow">ACERCA</div>
+      <div class="title-row">
+        <PageLogo />
+        <h1 class="page-title">De la sociedad civil,<br /><em>por la sociedad civil.</em></h1>
+      </div>
+    </div>
+
+    <div class="rule rule--heavy"></div>
+
+    <div class="content-grid">
+      <aside class="content-aside">
+        <nav class="toc" aria-label="Secciones">
+          <div class="toc-label">EN ESTA PÁGINA</div>
+          <ul>
+            <li><a href="#que-es">¿Qué es esto?</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#obras">Imágenes</a></li>
+            <li><a href="#licencia">Licencia</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="content-body">
+
+        <section id="que-es" class="content-section">
+          <h2 class="section-title">¿Qué es esto?</h2>
+          <p>
+            Lo Público es un proyecto para hacer más fácil ver qué hacen las administraciones
+            con el dinero y el tiempo de todos. No es de ningún partido, no tiene ningún
+            organismo detrás y no tiene fin comercial.
+          </p>
+          <p>
+            Nace de la convicción de que los datos públicos deberían ser realmente accesibles
+            —no solo técnicamente disponibles en algún portal oficial que nadie consulta— y de
+            que cualquier persona, sin conocimientos especiales, debería poder comprobar cómo se
+            gestiona lo que es de todos.
+          </p>
+          <p>
+            No hay publicidad, no se venden datos, no se monetizan las visitas. Se sostiene
+            con tiempo libre y ganas.
+          </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="como-funciona" class="content-section">
+          <h2 class="section-title">Cómo funciona</h2>
+
+          <div class="principle">
+            <div class="principle-label">TRANSPARENCIA</div>
+            <p>
+              La metodología de cada herramienta es pública: de dónde vienen los datos,
+              cómo se han procesado y qué limitaciones tienen. Si algo está mal o incompleto,
+              se dice.
+            </p>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">INDEPENDENCIA</div>
+            <p>
+              No hay financiación pública ni privada. Las herramientas se aplican con los
+              mismos criterios sin importar quién gobierne el organismo analizado.
+            </p>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">ACCESIBILIDAD</div>
+            <p>
+              Los datos son de todos, así que las herramientas intentan ser útiles para
+              cualquier persona, no solo para quienes ya saben manejarse con datos abiertos.
+            </p>
+          </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="obras" class="content-section">
+          <h2 class="section-title">Imágenes</h2>
+          <p>
+            Las imágenes del portal son reproducciones de obras del
+            <a href="https://www.museodelprado.es" target="_blank" rel="noopener noreferrer">Museo Nacional del Prado</a>,
+            que permite su uso con fines no comerciales. Los títulos y autores aparecen
+            al pie de cada imagen.
+          </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="licencia" class="content-section">
+          <h2 class="section-title">Licencia</h2>
+          <p>
+            El código está en
+            <a href="https://gitlab.com/lopublico" target="_blank" rel="noopener noreferrer">GitLab</a>.
+            Los textos y visualizaciones se publican bajo
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC-BY 4.0</a>:
+            puedes usar, adaptar y redistribuir con cualquier fin, incluso comercial, citando la fuente.
+          </p>
+          <p>
+            Las reproducciones del Prado solo están autorizadas para usos no comerciales,
+            según los términos del propio museo.
+          </p>
+        </section>
+
+      </article>
+    </div>
+
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  /* .page comes from global Layout styles */
+
+  .rule { height: 1px; }
+  .rule--heavy { background: var(--fg); }
+  .rule--thin  { background: var(--line-strong); }
+
+  .inner-header { padding: 32px 0 28px; }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .page-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 38px;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .page-title em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    column-gap: 64px;
+    padding: 40px 0 48px;
+    align-items: start;
+  }
+
+  .content-aside { position: sticky; top: 32px; }
+
+  .toc-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .toc ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .toc a {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color 120ms, border-color 120ms;
+  }
+  .toc a:hover { color: var(--fg); border-bottom-color: var(--fg); }
+
+  .content-body { max-width: 680px; }
+
+  .section-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 40px 0;
+  }
+
+  .section-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.015em;
+    margin-bottom: 20px;
+  }
+
+  .content-section p {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg-2);
+    margin-bottom: 16px;
+  }
+  .content-section p:last-child { margin-bottom: 0; }
+
+  .content-section a {
+    color: var(--fg);
+    border-bottom: 1px solid var(--line-strong);
+    text-decoration: none;
+    transition: border-color 120ms;
+  }
+  .content-section a:hover { border-bottom-color: var(--fg); }
+
+  .principle {
+    margin-bottom: 28px;
+    padding-left: 16px;
+    border-left: 2px solid var(--line-strong);
+  }
+  .principle:last-child { margin-bottom: 0; }
+
+  .principle-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .principle p {
+    font-family: var(--font-serif);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--fg-2);
+    margin: 0 !important;
+  }
+
+  @media (max-width: 860px) {
+    .content-grid { grid-template-columns: 1fr; gap: 32px; }
+    .content-aside { position: static; }
+    .toc ul { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  }
+
+  @media (max-width: 600px) {
+    .page-title { font-size: 26px; }
+    .content-grid { padding: 28px 0 36px; }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 0 20px; }
+    .page-title { font-size: 26px; }
+    .content-grid { padding: 28px 0 36px; }
+  }
+</style>

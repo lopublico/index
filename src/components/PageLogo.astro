@@ -1,0 +1,73 @@
+---
+---
+
+<div class="page-logo" id="page-logo">
+  <img src="/logos/logo1.jpg"  alt="" loading="eager">
+  <img src="/logos/logo2.jpg"  alt="" loading="eager">
+  <img src="/logos/logo3.jpg"  alt="" loading="eager">
+  <img src="/logos/logo4.jpg"  alt="" loading="eager">
+  <img src="/logos/logo5.jpg"  alt="" loading="eager">
+  <img src="/logos/logo6.jpg"  alt="" loading="eager">
+  <img src="/logos/logo7.jpg"  alt="" loading="eager">
+  <img src="/logos/logo8.jpg"  alt="" loading="eager">
+  <img src="/logos/logo9.jpg"  alt="" loading="eager">
+  <img src="/logos/logo10.jpg" alt="" loading="eager">
+</div>
+
+<style>
+  /* T=40s (10 logos × 4s), crossfade de 1s solapado entre logos */
+  .page-logo {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+  }
+
+  .page-logo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    animation: page-logo-cycle 40s infinite;
+  }
+
+  .page-logo img:nth-child(1)  { animation-delay:  0s; }
+  .page-logo img:nth-child(2)  { animation-delay:  4s; }
+  .page-logo img:nth-child(3)  { animation-delay:  8s; }
+  .page-logo img:nth-child(4)  { animation-delay: 12s; }
+  .page-logo img:nth-child(5)  { animation-delay: 16s; }
+  .page-logo img:nth-child(6)  { animation-delay: 20s; }
+  .page-logo img:nth-child(7)  { animation-delay: 24s; }
+  .page-logo img:nth-child(8)  { animation-delay: 28s; }
+  .page-logo img:nth-child(9)  { animation-delay: 32s; }
+  .page-logo img:nth-child(10) { animation-delay: 36s; }
+
+  @keyframes page-logo-cycle {
+    0%     { opacity: 0; }
+    2.5%   { opacity: 1; }
+    10%    { opacity: 1; }
+    12.5%  { opacity: 0; }
+    100%   { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-logo img { animation: none; }
+    .page-logo img:nth-child(1) { opacity: 1; }
+  }
+</style>
+
+<script>
+  function shuffle() {
+    const container = document.getElementById('page-logo');
+    if (!container) return;
+    const imgs = [...container.querySelectorAll('img')];
+    for (let i = imgs.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      container.appendChild(imgs[j]);
+      [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
+    }
+  }
+  document.addEventListener('astro:page-load', shuffle);
+</script>

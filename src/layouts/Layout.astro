@@ -1,0 +1,149 @@
+---
+import { ClientRouter, fade } from 'astro:transitions';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Lo público — La Administración, en datos',
+  description = 'Herramientas para fiscalizar el sector público español: contratación, listas de espera, comunicación institucional y más.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <ClientRouter />
+  </head>
+  <body transition:animate={fade({ duration: '0.4s' })}>
+    <div class="mobile-notice" id="mobile-notice" role="alert" aria-live="polite">
+      <span class="mobile-notice__text">
+        Las plataformas de Lo Público muestran datos tabulares que pueden no verse bien en pantallas pequeñas. Se recomienda acceder desde un ordenador.
+      </span>
+      <button class="mobile-notice__close" onclick="this.parentElement.remove()" aria-label="Cerrar aviso">✕</button>
+    </div>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #ffffff;
+    --fg: #000000;
+    --fg-2: #1a1a1a;
+    --muted: #6f6f6f;
+    --muted-2: #a3a3a3;
+    --line: #e5e5e5;
+    --line-strong: #d4d4d4;
+    --hover-bg: #fafafa;
+
+    --font-sans: 'Geist', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-serif: 'Lora', Georgia, serif;
+
+    /* Shared layout constants */
+    --page-max:     1320px;
+    --page-pad:     48px;
+    --page-pad-sm:  20px;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  a   { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+
+  /* ── Shared page container ───────────────────────────────────────────── */
+  /* Used as class="page" on every <main>. Scoped styles must not redefine
+     these properties — only add page-specific ones on top. */
+  .page {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 0 var(--page-pad);
+    width: 100%;
+    flex: 1;           /* pushes footer to bottom (body is flex-column) */
+  }
+
+  /* Sticky footer: belt-and-suspenders for <main> without .page */
+  body > main { flex: 1; }
+
+  @media (max-width: 600px) {
+    .page { padding: 0 var(--page-pad-sm); }
+  }
+
+
+  /* ── Mobile notice ───────────────────────────────────────────────────── */
+  .mobile-notice {
+    display: none;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px var(--page-pad-sm);
+    background: var(--fg);
+    color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  .mobile-notice__text { flex: 1; }
+
+  .mobile-notice__close {
+    color: var(--bg);
+    font-size: 12px;
+    flex-shrink: 0;
+    opacity: 0.6;
+    transition: opacity 120ms;
+    line-height: 1.5;
+  }
+
+  .mobile-notice__close:hover { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .mobile-notice { display: flex; }
+  }
+
+  /* ── Reduced motion ──────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    [transition\:animate] { animation: none !important; }
+  }
+</style>

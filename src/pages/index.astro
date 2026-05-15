@@ -1,0 +1,372 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const tools = [
+  {
+    id: 'contratacion',
+    name: 'Portal de Contratación',
+    pull: 'Quién contrata, a quién, y por cuánto.',
+    desc: 'Todos los contratos públicos —licitaciones, adjudicaciones y proveedores— en un único navegador, con filtros por organismo, importe y procedimiento.',
+    tags: ['CONTRATOS', 'ADJUDICACIONES'],
+    href: 'https://contratacion.lopublico.es',
+    cta: 'Próximamente',
+    isLead: true,
+    painting: {
+      src: '/vulcano.jpg',
+      alt: 'La fragua de Vulcano',
+      title: 'La fragua de Vulcano',
+      artist: 'Diego Velázquez',
+      year: 'h. 1630',
+    },
+  },
+    {
+    id: 'listas',
+    name: 'Listas de Espera',
+    pull: 'Cuánto se espera, dónde, para qué.',
+    desc: 'Plazos reales de espera en sanidad, dependencia y discapacidad, desglosados por Comunidad Autónoma y actualizados con los datos oficiales disponibles.',
+    tags: ['SANIDAD', 'DEPENDENCIA'],
+    href: '#',
+    cta: 'Próximamente',
+    isLead: false,
+    painting: {
+      src: '/ermita.jpg',
+      alt: 'La ermita de San Isidro el día de la fiesta',
+      title: 'La ermita de San Isidro el día de la fiesta',
+      artist: 'Francisco de Goya',
+      year: '1788',
+    },
+  },
+  {
+    id: 'saldeahi',
+    name: 'Sal de ahí',
+    pull: 'Las instituciones públicas en Twitter, y por qué deberían salir de ahí.',
+    desc: 'Monitoriza la presencia en Twitter de administraciones, empresas públicas y representantes del Congreso y el Senado. Una herramienta para evidenciar la dependencia institucional de plataformas privadas y promover las redes federadas.',
+    tags: ['REDES', 'SOBERANÍA DIGITAL'],
+    href: 'https://saldeahi.lopublico.es',
+    cta: 'Entrar',
+    isLead: false,
+    painting: {
+      src: '/delicias.jpg',
+      alt: 'El jardín de las delicias',
+      title: 'El jardín de las delicias',
+      artist: 'El Bosco',
+      year: 'h. 1490',
+    },
+  },
+
+];
+
+// Grid: lead column wider, rest equal. Dividers via border-left in CSS.
+const gridCols = `1.4fr repeat(${tools.length - 1}, 1fr)`;
+const lead = tools[0];
+const secondaries = tools.slice(1);
+---
+
+<Layout>
+  <main class="page">
+    <SiteHeader currentPath="/" />
+
+    <section class="tool-grid" style={`grid-template-columns: ${gridCols}`} aria-label="Herramientas disponibles">
+
+      <!-- Lead -->
+      <article class="tool-col tool-col--lead">
+        <div class="tool-eyebrow">
+          <span class="badge" aria-label="Destacada">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path fill="currentColor" d="m12 17.275l-4.15 2.5q-.275.175-.575.15t-.525-.2t-.35-.437t-.05-.588l1.1-4.725L3.775 10.8q-.25-.225-.312-.513t.037-.562t.3-.45t.55-.225l4.85-.425l1.875-4.45q.125-.3.388-.45t.537-.15t.537.15t.388.45l1.875 4.45l4.85.425q.35.05.55.225t.3.45t.038.563t-.313.512l-3.675 3.175l1.1 4.725q.075.325-.05.588t-.35.437t-.525.2t-.575-.15z" />
+            </svg>
+          </span>
+        </div>
+
+        <a href={lead.href} class="painting-link" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener noreferrer">
+          <figure class="painting">
+            <img src={lead.painting.src} alt={lead.painting.alt} width="800" height="600" loading="eager" />
+          </figure>
+        </a>
+        <p class="painting-caption">
+          {lead.painting.title}, {lead.painting.artist}, {lead.painting.year}
+        </p>
+
+        <a href={lead.href} class="tool-link" target="_blank" rel="noopener noreferrer">
+          <h2 class="tool-name tool-name--lead">{lead.name}</h2>
+        </a>
+        <blockquote class="tool-pull tool-pull--lead">*** ***** *** ***** ** *** ****</blockquote>
+        <p class="tool-body">**** ** ******** *** ***** ****** ** ******* *** ** *** ****** *** *** ***** ** *** ******* ** ******** *** ** *** **** *** *****</p>
+
+        <div class="tool-meta">
+          <span class="tool-tags">
+            {lead.tags.map((t, i) => (
+              <>{i > 0 && <span class="tag-sep"> · </span>}<span class="tag">{t}</span></>
+            ))}
+          </span>
+          <a href={lead.href} class="tool-cta" target="_blank" rel="noopener noreferrer">
+            {lead.cta} <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Secondaries -->
+      {secondaries.map((tool) => (
+        <article class="tool-col tool-col--secondary">
+          <div class="tool-eyebrow">
+          </div>
+
+          <a href={tool.href} class="painting-link" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener noreferrer">
+            <figure class="painting">
+              <img src={tool.painting.src} alt={tool.painting.alt} width="600" height="450" loading="lazy" />
+            </figure>
+          </a>
+          <p class="painting-caption">
+            {tool.painting.title}, {tool.painting.artist}, {tool.painting.year}
+          </p>
+
+          <a href={tool.href} class="tool-link" target="_blank" rel="noopener noreferrer">
+            <h2 class="tool-name tool-name--secondary">{tool.name}</h2>
+          </a>
+          <p class="tool-pull tool-pull--secondary">*** ***** *** ***** ** *** ****</p>
+          <p class="tool-body tool-body--secondary">**** ** ******** *** ***** ****** ** ******* *** ** *** ****** *** *** ***** ** *** *******</p>
+
+          <div class="tool-meta">
+            <span class="tool-tags">
+              {tool.tags.map((t, j) => (
+                <>{j > 0 && <span class="tag-sep"> · </span>}<span class="tag">{t}</span></>
+              ))}
+            </span>
+            <a href={tool.href} class="tool-cta" target="_blank" rel="noopener noreferrer">
+              {tool.cta} <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+      ))}
+
+    </section>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  /* .page comes from the global Layout styles */
+
+  /* ── Tool grid ────────────────────────────────────────────────────────── */
+  .tool-grid {
+    display: grid;
+    /* grid-template-columns set via inline style for dynamic tool count */
+    padding: 36px 0 40px;
+  }
+
+  @keyframes col-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .tool-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding-right: 32px;
+    animation: col-fade-in 0.5s ease-out both;
+  }
+
+  .tool-col:nth-child(1) { animation-delay: 0.05s; }
+  .tool-col:nth-child(2) { animation-delay: 0.18s; }
+  .tool-col:nth-child(3) { animation-delay: 0.31s; }
+  .tool-col:nth-child(4) { animation-delay: 0.44s; }
+
+  /* Divider via border; all columns except first get left border + padding */
+  .tool-col + .tool-col {
+    border-left: 1px solid var(--line);
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .tool-col:last-child {
+    padding-right: 0;
+  }
+
+  /* ── Eyebrow ──────────────────────────────────────────────────────────── */
+  .tool-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    height: 26px;
+    margin-bottom: 14px;
+    min-width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+
+  .tool-num { color: var(--fg); font-weight: 600; }
+
+  .badge {
+    font-size: 16px;
+    line-height: 1;
+    color: var(--fg);
+    flex-shrink: 0;
+    display: flex;
+  }
+
+  /* ── Painting ─────────────────────────────────────────────────────────── */
+  .painting-link {
+    display: block;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .painting {
+    position: relative;
+    background: #e8e6e1;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    margin: 0;
+  }
+
+  .painting img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform;
+  }
+
+  .tool-col:hover .painting img { transform: scale(1.03); }
+
+  /* ── Caption ──────────────────────────────────────────────────────────── */
+  .painting-caption {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-bottom: 20px;
+    min-height: calc(2 * 1.5 * 10.5px);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Names ────────────────────────────────────────────────────────────── */
+  .tool-link { display: block; color: var(--fg); text-decoration: none; }
+
+  .tool-name { letter-spacing: -0.02em; line-height: 1.1; }
+
+  .tool-name--lead {
+    font-family: var(--font-sans);
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: -0.025em;
+  }
+
+  .tool-name--secondary {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  /* ── Pull ─────────────────────────────────────────────────────────────── */
+  .tool-pull {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--fg-2);
+    margin-bottom: 14px;
+  }
+
+  .tool-pull--lead {
+    font-size: 16.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    padding-left: 14px;
+    border-left: 2px solid var(--fg);
+    margin: 0 0 14px;
+  }
+
+  .tool-pull--secondary {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  /* ── Body ─────────────────────────────────────────────────────────────── */
+  .tool-body {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    margin-bottom: 22px;
+  }
+
+  .tool-body--secondary { font-size: 13.5px; }
+
+  /* ── Meta ─────────────────────────────────────────────────────────────── */
+  .tool-meta {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .tool-tags { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  .tag { letter-spacing: 0.1em; }
+  .tag-sep { color: var(--muted-2); }
+
+  .tool-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--fg);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: gap 180ms ease;
+  }
+
+  .tool-col:hover .tool-cta { gap: 13px; }
+
+  /* ── Responsive ───────────────────────────────────────────────────────── */
+
+  /* Below 900px: collapse directly to single column, no complex intermediate */
+  @media (max-width: 900px) {
+    .tool-grid {
+      grid-template-columns: 1fr !important;
+      padding: 28px 0 36px;
+    }
+
+    .tool-col,
+    .tool-col + .tool-col {
+      border-left: none;
+      padding-left: 0;
+      padding-right: 0;
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+    }
+
+    .tool-col:first-child { border-top: none; padding-top: 0; }
+
+    .tool-col--lead .tool-name--lead { font-size: 24px; }
+    .tool-col--lead .tool-pull--lead { font-size: 15px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tool-col { animation: none; }
+    .painting img, .tool-cta { transition: none; }
+  }
+</style>

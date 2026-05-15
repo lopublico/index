@@ -1,0 +1,293 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import PageLogo from '../components/PageLogo.astro';
+---
+
+<Layout
+  title="Metodología — Lo público"
+  description="Cómo se obtienen y tratan los datos en Lo Público: fuentes, criterios y limitaciones."
+>
+  <main class="page">
+
+    <SiteHeader currentPath="/metodologia" />
+    <div class="rule rule--thin"></div>
+
+    <div class="inner-header">
+      <div class="section-eyebrow">METODOLOGÍA</div>
+      <div class="title-row">
+        <PageLogo />
+        <h1 class="page-title">Cómo se obtienen<br /><em>y tratan los datos.</em></h1>
+      </div>
+    </div>
+
+    <div class="rule rule--heavy"></div>
+
+    <div class="content-grid">
+      <aside class="content-aside">
+        <nav class="toc" aria-label="Secciones">
+          <div class="toc-label">EN ESTA PÁGINA</div>
+          <ul>
+            <li><a href="#fuentes">Fuentes</a></li>
+            <li><a href="#proceso">Proceso</a></li>
+            <li><a href="#ia">Uso de IA</a></li>
+            <li><a href="#limitaciones">Limitaciones</a></li>
+            <li><a href="#por-herramienta">Por herramienta</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="content-body">
+
+        <section id="fuentes" class="content-section">
+          <h2 class="section-title">Fuentes</h2>
+          <p>
+            Siempre que es posible se usan fuentes oficiales: portales de datos abiertos de las
+            administraciones, registros públicos y publicaciones oficiales. Cuando los datos
+            oficiales son insuficientes o no están en un formato que permita trabajar con ellos,
+            se recurre a otras fuentes que se documentan en cada herramienta.
+          </p>
+          <p>
+            El criterio es priorizar lo oficial sobre lo derivado, y lo reutilizable sobre lo
+            que obliga a hacer ingeniería inversa. No siempre es posible.
+          </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="proceso" class="content-section">
+          <h2 class="section-title">Proceso</h2>
+          <p>
+            Los datos pasan por tres etapas: extracción, transformación y carga. La extracción
+            obtiene los datos de las fuentes originales. La transformación los limpia, normaliza
+            y estructura. La carga los hace disponibles para las herramientas de visualización.
+          </p>
+          <p>
+            Todos los pasos están documentados y, en la medida de lo posible, automatizados.
+            El código de cada proceso está disponible en el repositorio del proyecto.
+          </p>
+          <p>
+            Las transformaciones aplicadas —deduplicación, normalización de identificadores,
+            agrupación— se describen en el apartado de metodología de cada herramienta para
+            que cualquiera pueda evaluarlas.
+          </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="ia" class="content-section">
+          <h2 class="section-title">Uso de inteligencia artificial</h2>
+          <p>
+            Parte del proceso de obtención y clasificación de datos se ha apoyado en
+            herramientas de inteligencia artificial. Concretamente, para tareas de extracción
+            automatizada en las que el volumen de datos haría inviable el trabajo manual:
+            reconocimiento de entidades, clasificación de textos y detección de duplicados.
+          </p>
+          <p>
+            Todos los resultados generados automáticamente se han revisado manualmente en una
+            muestra representativa, y los criterios de análisis son propios: la IA se usa como
+            herramienta de procesamiento, no como árbitro de las decisiones metodológicas.
+          </p>
+          <p>
+            Cuando el uso de IA afecta a datos concretos que se muestran en una herramienta,
+            se indica en su apartado de metodología.
+          </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="limitaciones" class="content-section">
+          <h2 class="section-title">Limitaciones</h2>
+          <p>
+            La calidad de los datos depende de lo que publican las administraciones, y ahí hay
+            de todo. Información publicada solo en PDF, campos vacíos o mal rellenados,
+            identificadores inconsistentes entre organismos, datos que llegan con meses de
+            retraso respecto al periodo que cubren. Y hay cosas que simplemente no se publican,
+            aunque deberían.
+          </p>
+          <p>
+            Estas limitaciones se documentan en cada herramienta cuando afectan a la
+            interpretación de lo que se muestra. No se ocultan ni se minimizan: forman parte
+            del análisis.
+          </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="por-herramienta" class="content-section">
+          <h2 class="section-title">Metodología por herramienta</h2>
+          <p>
+            Cada herramienta tiene su propia página de metodología donde se detalla todo lo
+            anterior aplicado a ese caso concreto: fuentes específicas, proceso, limitaciones
+            conocidas y criterios de análisis propios.
+          </p>
+          <div class="tool-links">
+            <div class="tool-link-item tool-link-item--disabled">
+              <span class="tool-link-num">01</span>
+              <span class="tool-link-name">Portal de Contratación</span>
+              <span class="tool-link-soon">PRÓXIMAMENTE</span>
+            </div>
+            <div class="tool-link-item tool-link-item--disabled">
+              <span class="tool-link-num">02</span>
+              <span class="tool-link-name">Sal de Ahí</span>
+              <span class="tool-link-soon">PRÓXIMAMENTE</span>
+            </div>
+            <div class="tool-link-item tool-link-item--disabled">
+              <span class="tool-link-num">03</span>
+              <span class="tool-link-name">Listas de Espera</span>
+              <span class="tool-link-soon">PRÓXIMAMENTE</span>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  /* .page comes from global Layout styles */
+
+  .rule { height: 1px; }
+  .rule--heavy { background: var(--fg); }
+  .rule--thin  { background: var(--line-strong); }
+
+  .inner-header { padding: 32px 0 28px; }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .page-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 38px;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .page-title em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    column-gap: 64px;
+    padding: 40px 0 48px;
+    align-items: start;
+  }
+
+  .content-aside { position: sticky; top: 32px; }
+
+  .toc-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .toc ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .toc a {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color 120ms, border-color 120ms;
+  }
+  .toc a:hover { color: var(--fg); border-bottom-color: var(--fg); }
+
+  .content-body { max-width: 680px; }
+
+  .section-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 40px 0;
+  }
+
+  .section-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.015em;
+    margin-bottom: 20px;
+  }
+
+  .content-section p {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg-2);
+    margin-bottom: 16px;
+  }
+  .content-section p:last-child { margin-bottom: 0; }
+
+  .tool-links {
+    margin-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .tool-link-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    text-decoration: none;
+    color: var(--fg-2);
+    transition: color 120ms;
+  }
+
+  a.tool-link-item:hover { color: var(--fg); }
+  a.tool-link-item:hover .tool-link-arrow { transform: translateX(4px); }
+
+  .tool-link-item--disabled { opacity: 0.45; cursor: default; }
+
+  .tool-link-num { color: var(--muted); letter-spacing: 0.06em; flex-shrink: 0; }
+  .tool-link-name { flex: 1; }
+
+  .tool-link-arrow {
+    color: var(--fg);
+    transition: transform 180ms ease;
+  }
+
+  .tool-link-soon {
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .content-grid { grid-template-columns: 1fr; gap: 32px; }
+    .content-aside { position: static; }
+    .toc ul { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  }
+
+  @media (max-width: 600px) {
+    .page-title { font-size: 26px; }
+    .content-grid { padding: 28px 0 36px; }
+  }
+</style>
