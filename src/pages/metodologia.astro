@@ -43,14 +43,11 @@ import PageLogo from '../components/PageLogo.astro';
         <section id="fuentes" class="content-section">
           <h2 class="section-title">Fuentes</h2>
           <p>
-            Siempre que es posible se usan fuentes oficiales: portales de datos abiertos de las
-            administraciones, registros públicos y publicaciones oficiales. Cuando los datos
-            oficiales son insuficientes o no están en un formato que permita trabajar con ellos,
-            se recurre a otras fuentes que se documentan en cada herramienta.
-          </p>
-          <p>
-            El criterio es priorizar lo oficial sobre lo derivado, y lo reutilizable sobre lo
-            que obliga a hacer ingeniería inversa. No siempre es posible.
+            Los datos de las distintas herramientas proceden de fuentes oficiales: portales de
+            datos abiertos de las administraciones, registros públicos y publicaciones oficiales.
+            Cuando los datos oficiales son insuficientes o no están en un formato que permita
+            trabajar con ellos, se recurre a otras fuentes —organizaciones como el Defensor del
+            Pueblo— que se documentan en cada herramienta.
           </p>
         </section>
 
@@ -61,16 +58,13 @@ import PageLogo from '../components/PageLogo.astro';
           <p>
             Los datos pasan por tres etapas: extracción, transformación y carga. La extracción
             obtiene los datos de las fuentes originales. La transformación los limpia, normaliza
-            y estructura. La carga los hace disponibles para las herramientas de visualización.
+            y estructura. La carga los hace disponibles para las herramientas de visualización,
+            así como para descarga individual de cada usuario.
           </p>
           <p>
-            Todos los pasos están documentados y, en la medida de lo posible, automatizados.
-            El código de cada proceso está disponible en el repositorio del proyecto.
-          </p>
-          <p>
-            Las transformaciones aplicadas —deduplicación, normalización de identificadores,
-            agrupación— se describen en el apartado de metodología de cada herramienta para
-            que cualquiera pueda evaluarlas.
+            Todos los pasos están documentados y, en la medida de lo posible, automatizados
+            para garantizar su mantenimiento. El código de cada proceso está disponible en el
+            repositorio del proyecto.
           </p>
         </section>
 
@@ -81,17 +75,14 @@ import PageLogo from '../components/PageLogo.astro';
           <p>
             Parte del proceso de obtención y clasificación de datos se ha apoyado en
             herramientas de inteligencia artificial. Concretamente, para tareas de extracción
-            automatizada en las que el volumen de datos haría inviable el trabajo manual:
-            reconocimiento de entidades, clasificación de textos y detección de duplicados.
+            automatizada en las que el volumen de datos o la dificultad de acceso a los mismos
+            haría extremadamente complejo el trabajo manual: reconocimiento de entidades,
+            clasificación de textos y detección de duplicados.
           </p>
           <p>
-            Todos los resultados generados automáticamente se han revisado manualmente en una
-            muestra representativa, y los criterios de análisis son propios: la IA se usa como
-            herramienta de procesamiento, no como árbitro de las decisiones metodológicas.
-          </p>
-          <p>
-            Cuando el uso de IA afecta a datos concretos que se muestran en una herramienta,
-            se indica en su apartado de metodología.
+            Todos los resultados generados automáticamente se han revisado manualmente, siendo
+            los criterios de análisis propios. La IA se usa únicamente como herramienta de
+            procesamiento, sin poder decisivo sobre aspectos metodológicos.
           </p>
         </section>
 
@@ -100,16 +91,15 @@ import PageLogo from '../components/PageLogo.astro';
         <section id="limitaciones" class="content-section">
           <h2 class="section-title">Limitaciones</h2>
           <p>
-            La calidad de los datos depende de lo que publican las administraciones, y ahí hay
-            de todo. Información publicada solo en PDF, campos vacíos o mal rellenados,
-            identificadores inconsistentes entre organismos, datos que llegan con meses de
-            retraso respecto al periodo que cubren. Y hay cosas que simplemente no se publican,
-            aunque deberían.
+            La calidad de los datos depende de lo que publiquen las administraciones, habiendo
+            una variedad de casuísticas. Existe información que no se publica usando formatos
+            accesibles, campos vacíos o mal rellenados, identificadores inconsistentes entre
+            organismos, o procesos que simplemente no se publican, aunque deberían.
           </p>
           <p>
-            Estas limitaciones se documentan en cada herramienta cuando afectan a la
-            interpretación de lo que se muestra. No se ocultan ni se minimizan: forman parte
-            del análisis.
+            La ausencia de datos forma parte del análisis y desde las herramientas se anima a
+            los ciudadanos a requerir información a los organismos públicos en aquellos casos
+            donde la opacidad es notable.
           </p>
         </section>
 
@@ -121,6 +111,11 @@ import PageLogo from '../components/PageLogo.astro';
             Cada herramienta tiene su propia página de metodología donde se detalla todo lo
             anterior aplicado a ese caso concreto: fuentes específicas, proceso, limitaciones
             conocidas y criterios de análisis propios.
+          </p>
+          <p>
+            Las transformaciones aplicadas —deduplicación, normalización de identificadores,
+            agrupación— también se describen en estos apartados para que cualquiera pueda
+            evaluarlas e incluso mejorarlas.
           </p>
           <div class="tool-links">
             <div class="tool-link-item tool-link-item--disabled">

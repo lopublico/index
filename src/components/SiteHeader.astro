@@ -12,14 +12,14 @@ const navLinks = [
 ---
 
 <header class="site-header">
-  <div class="site-brand">
-    <div class="brand-logo" aria-hidden="true">
-      <img src="/logos/logo0.jpg" alt="">
+  <div class="tool-title-row">
+    <div class="tool-logo" aria-hidden="true">
+      <img src="/logos/logo0.png" alt="">
     </div>
-    <span class="brand-text">
-      <a href="/" class="wordmark">Lo público<span class="wordmark__dot">.</span></a>
-      <span class="tagline">La Administración, en datos</span>
-    </span>
+    <div class="tool-title-text">
+      <a href="/" class="tool-title-name">Lo público.</a>
+      <span class="tool-title-parent">La Administración, en datos</span>
+    </div>
   </div>
 
   <nav class="site-nav" aria-label="Navegación principal">
@@ -44,76 +44,72 @@ const navLinks = [
     position: relative;
   }
 
-  .site-brand {
-    display: flex;
+  .tool-title-row {
+    display: inline-flex;
     align-items: center;
-    gap: 14px;
-    flex-shrink: 0;
-    text-decoration: none;
-  }
-
-  .brand-logo {
-    width: 36px;
-    height: 36px;
+    gap: 12px;
     flex-shrink: 0;
   }
 
-  .brand-text {
-    display: flex;
-    align-items: baseline;
-    gap: 34px;
+  .tool-logo {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
   }
 
-  .brand-logo img {
+  .tool-logo img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    border-radius: 4px;
   }
 
+  .tool-title-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 44px;
+    padding-left: 12px;
+    border-left: 1px solid var(--line);
+  }
 
-  .wordmark {
+  .tool-title-name {
     font-family: var(--font-sans);
     font-weight: 600;
-    font-size: 28px;
-    letter-spacing: -0.025em;
+    font-size: 22px;
+    letter-spacing: -0.02em;
     line-height: 1;
     color: var(--fg);
-    white-space: nowrap;
     text-decoration: none;
   }
-  .wordmark__dot { color: var(--fg); }
 
-  .tagline {
+  .tool-title-parent {
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 13.5px;
-    color: var(--muted);
+    font-size: 15px;
     line-height: 1;
-    white-space: nowrap;
+    color: var(--muted);
   }
 
   .site-nav {
     display: flex;
     align-items: center;
-    gap: 24px;
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    letter-spacing: 0.04em;
+    gap: 4px;
   }
 
   .nav-link {
-    color: var(--fg-2);
-    white-space: nowrap;
-    padding-bottom: 1px;
-    border-bottom: 1px solid transparent;
-    transition: border-color 120ms, color 120ms;
+    padding: 5px 10px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
     text-decoration: none;
+    color: var(--fg-2);
+    border-radius: 4px;
+    transition: color 120ms, background 120ms;
+    white-space: nowrap;
   }
-  .nav-link:hover,
-  .nav-link--active {
-    color: var(--fg);
-    border-bottom-color: var(--fg);
-  }
+  .nav-link:hover { color: var(--fg); background: rgba(0, 0, 0, 0.05); }
+  .nav-link--active { color: var(--fg); font-weight: 600; }
 
   /* ── Responsive ───────────────────────────────────────────────────────── */
   @media (max-width: 600px) {
@@ -123,7 +119,7 @@ const navLinks = [
       gap: 14px;
       padding: 18px 0 14px;
     }
-    .tagline { display: none; }
-    .site-nav { gap: 16px; font-size: 11px; }
+    .tool-title-text { display: none; }
+    .site-nav { gap: 2px; }
   }
 </style>

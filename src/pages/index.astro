@@ -24,7 +24,7 @@ const tools = [
     {
     id: 'listas',
     name: 'Listas de Espera',
-    pull: 'Cuánto se espera, dónde, para qué.',
+    pull: 'Cuánto se espera y dónde.',
     desc: 'Plazos reales de espera en sanidad, dependencia y discapacidad, desglosados por Comunidad Autónoma y actualizados con los datos oficiales disponibles.',
     tags: ['SANIDAD', 'DEPENDENCIA'],
     href: '#',
@@ -68,7 +68,7 @@ const secondaries = tools.slice(1);
   <main class="page">
     <SiteHeader currentPath="/" />
 
-    <section class="tool-grid" style={`grid-template-columns: ${gridCols}`} aria-label="Herramientas disponibles">
+    <section class="tool-grid" style={`--tool-cols: ${gridCols}`} aria-label="Herramientas disponibles">
 
       <!-- Lead -->
       <article class="tool-col tool-col--lead">
@@ -126,8 +126,8 @@ const secondaries = tools.slice(1);
           <a href={tool.href} class="tool-link" target="_blank" rel="noopener noreferrer">
             <h2 class="tool-name tool-name--secondary">{tool.name}</h2>
           </a>
-          <p class="tool-pull tool-pull--secondary">*** ***** *** ***** ** *** ****</p>
-          <p class="tool-body tool-body--secondary">**** ** ******** *** ***** ****** ** ******* *** ** *** ****** *** *** ***** ** *** *******</p>
+          <p class="tool-pull tool-pull--secondary">{tool.pull}</p>
+          <p class="tool-body tool-body--secondary">{tool.desc}</p>
 
           <div class="tool-meta">
             <span class="tool-tags">
@@ -154,7 +154,7 @@ const secondaries = tools.slice(1);
   /* ── Tool grid ────────────────────────────────────────────────────────── */
   .tool-grid {
     display: grid;
-    /* grid-template-columns set via inline style for dynamic tool count */
+    grid-template-columns: var(--tool-cols);
     padding: 36px 0 40px;
   }
 
