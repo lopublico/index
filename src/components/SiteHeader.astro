@@ -114,12 +114,11 @@ const navLinks = [
   /* ── Responsive ───────────────────────────────────────────────────────── */
   @media (max-width: 600px) {
     .site-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 14px;
+      flex-wrap: wrap;
+      gap: 12px 0;
       padding: 18px 0 14px;
     }
-    .tool-title-text { display: none; }
-    .site-nav { gap: 2px; }
+    .tool-title-row { width: 100%; }
+    .site-nav { gap: 2px; width: 100%; }
   }
 </style>
