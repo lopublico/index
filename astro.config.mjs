@@ -10,7 +10,7 @@ export default defineConfig({
   // Elimina la petición bloqueante a fonts.googleapis.com.
   fonts: [
     {
-      name: 'Geist',
+      name: 'Inter',
       cssVariable: '--font-sans',
       provider: fontProviders.google(),
       weights: ['400', '500', '600', '700'],

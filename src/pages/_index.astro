@@ -1,0 +1,355 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import delicias from '../assets/cuadros/delicias.jpg';
+import vulcano from '../assets/cuadros/vulcano.jpg';
+import ermita from '../assets/cuadros/ermita.jpg';
+import paloma from '../assets/cuadros/paloma.jpg';
+
+const proyectos = [
+  {
+    nombre: 'Sal de ahí',
+    descripcion: 'Monitoriza la presencia en Twitter de administraciones, empresas públicas y representantes del Congreso y el Senado. Una herramienta para evidenciar la dependencia institucional de plataformas privadas y promover las redes federadas.',
+    etiquetas: ['REDES', 'SOBERANÍA DIGITAL'],
+    href: 'https://saldeahi.lopublico.es',
+    cta: 'Entrar',
+    principal: true,
+    cuadro: {
+      src: delicias,
+      alt: 'El jardín de las delicias',
+      titulo: 'El jardín de las delicias',
+      autor: 'El Bosco',
+      año: 'h. 1490',
+    },
+  },
+  {
+    nombre: 'Hablar con un humano',
+    descripcion: 'Qué marcar y qué decir para saltarte los menús automáticos y llegar a una persona en empresas y administraciones. Un directorio colaborativo, sin ánimo de lucro.',
+    etiquetas: ['ATENCIÓN AL CLIENTE', 'IVR'],
+    href: 'https://hablarconunhumano.lopublico.es',
+    cta: 'Entrar',
+    cuadro: {
+      src: paloma,
+      alt: 'La Paloma del Espíritu Santo, rodeada de ángeles y amorcillos',
+      titulo: 'La Paloma del Espíritu Santo, rodeada de ángeles y amorcillos',
+      autor: 'Atrib. Giuseppe Simonelli',
+      año: 's. XVII',
+    },
+  },
+  {
+    nombre: 'Portal de Contratación',
+    descripcion: 'Todos los contratos públicos —licitaciones, adjudicaciones y proveedores— en un único navegador, con filtros por organismo, importe y procedimiento.',
+    etiquetas: ['CONTRATOS', 'ADJUDICACIONES'],
+    href: 'https://contratacion.lopublico.es',
+    cta: 'Próximamente',
+    proximo: true,
+    cuadro: {
+      src: vulcano,
+      alt: 'La fragua de Vulcano',
+      titulo: 'La fragua de Vulcano',
+      autor: 'Diego Velázquez',
+      año: 'h. 1630',
+    },
+  },
+  {
+    nombre: 'Listas de Espera',
+    descripcion: 'Plazos reales de espera en sanidad, dependencia y discapacidad, desglosados por Comunidad Autónoma y actualizados con los datos oficiales disponibles.',
+    etiquetas: ['SANIDAD', 'DEPENDENCIA'],
+    href: '#',
+    cta: 'Próximamente',
+    proximo: true,
+    cuadro: {
+      src: ermita,
+      alt: 'La ermita de San Isidro el día de la fiesta',
+      titulo: 'La ermita de San Isidro el día de la fiesta',
+      autor: 'Francisco de Goya',
+      año: '1788',
+    },
+  },
+];
+
+const columnas = `1.4fr repeat(${proyectos.length - 1}, 1fr)`;
+const principal = proyectos[0];
+const resto = proyectos.slice(1);
+---
+
+<Layout>
+  <main class="page">
+    <SiteHeader currentPath="/" />
+
+    <section class="rejilla" style={`--columnas: ${columnas}`} aria-label="Herramientas disponibles">
+
+      <article class={`proyecto principal${principal.proximo ? ' proximo' : ''}`}>
+        <div class="icono-estado">
+          <span class="insignia" aria-label="Destacada">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path fill="currentColor" d="m12 17.275l-4.15 2.5q-.275.175-.575.15t-.525-.2t-.35-.437t-.05-.588l1.1-4.725L3.775 10.8q-.25-.225-.312-.513t.037-.562t.3-.45t.55-.225l4.85-.425l1.875-4.45q.125-.3.388-.45t.537-.15t.537.15t.388.45l1.875 4.45l4.85.425q.35.05.55.225t.3.45t.038.563t-.313.512l-3.675 3.175l1.1 4.725q.075.325-.05.588t-.35.437t-.525.2t-.575-.15z" />
+            </svg>
+          </span>
+        </div>
+
+        <a href={principal.href} class="enlace-cuadro" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener noreferrer">
+          <figure class="cuadro">
+            <Image src={principal.cuadro.src} alt={principal.cuadro.alt} width={800} height={600} format="webp" quality={70} loading="eager" fetchpriority="high" />
+          </figure>
+        </a>
+        <p class="pie-cuadro">
+          {principal.cuadro.titulo}, {principal.cuadro.autor}, {principal.cuadro.año}
+        </p>
+
+        <a href={principal.href} class="enlace-titulo" target="_blank" rel="noopener noreferrer">
+          <h2 class="nombre nombre-principal">{principal.nombre}</h2>
+        </a>
+        <p class="descripcion">{principal.descripcion}</p>
+
+        <div class="pie">
+          <span class="etiquetas">
+            {principal.etiquetas.map((e, i) => (
+              <>{i > 0 && <span class="sep"> · </span>}<span class="etiqueta">{e}</span></>
+            ))}
+          </span>
+          <a href={principal.href} class="accion" target="_blank" rel="noopener noreferrer">
+            {principal.cta} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+
+      {resto.map((p) => (
+        <article class={`proyecto${p.proximo ? ' proximo' : ''}`}>
+          <a href={p.href} class="enlace-cuadro" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener noreferrer">
+            <figure class="cuadro">
+              <Image src={p.cuadro.src} alt={p.cuadro.alt} width={600} height={450} format="webp" quality={65} loading="lazy" />
+            </figure>
+          </a>
+          <p class="pie-cuadro">
+            {p.cuadro.titulo}, {p.cuadro.autor}, {p.cuadro.año}
+          </p>
+
+          <a href={p.href} class="enlace-titulo" target="_blank" rel="noopener noreferrer">
+            <h2 class="nombre">{p.nombre}</h2>
+          </a>
+          <p class="descripcion">{p.descripcion}</p>
+
+          <div class="pie">
+            <span class="etiquetas">
+              {p.etiquetas.map((e, j) => (
+                <>{j > 0 && <span class="sep"> · </span>}<span class="etiqueta">{e}</span></>
+              ))}
+            </span>
+            <a href={p.href} class="accion" target="_blank" rel="noopener noreferrer">
+              {p.cta} <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+      ))}
+
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .rejilla {
+    display: grid;
+    grid-template-columns: var(--columnas);
+    padding: 36px 0 40px;
+  }
+
+  @keyframes entrada {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .proyecto {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding-right: 32px;
+    animation: entrada 0.5s ease-out both;
+  }
+
+  .proyecto:nth-child(1) { animation-delay: 0.05s; }
+  .proyecto:nth-child(2) { animation-delay: 0.18s; }
+  .proyecto:nth-child(3) { animation-delay: 0.31s; }
+  .proyecto:nth-child(4) { animation-delay: 0.44s; }
+
+  .proyecto + .proyecto {
+    border-left: 1px solid var(--line);
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .proyecto:last-child {
+    padding-right: 0;
+  }
+
+  /* espacio equivalente al icono-estado del proyecto principal */
+  .proyecto:not(.principal) {
+    padding-top: 40px;
+  }
+
+  .icono-estado {
+    height: 26px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+
+  .insignia {
+    font-size: 16px;
+    line-height: 1;
+    color: var(--fg);
+    flex-shrink: 0;
+    display: flex;
+  }
+
+  .enlace-cuadro {
+    display: block;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .cuadro {
+    position: relative;
+    background: #e8e6e1;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    margin: 0;
+  }
+
+  .cuadro img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .proyecto:hover .cuadro img { transform: scale(1.03); }
+
+  .pie-cuadro {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-bottom: 20px;
+    min-height: calc(2 * 1.5 * 10.5px);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .enlace-titulo { display: block; color: var(--fg); text-decoration: none; }
+
+  .nombre {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .nombre-principal {
+    font-size: 28px;
+    margin-bottom: 14px;
+    letter-spacing: -0.025em;
+  }
+
+  .descripcion {
+    font-family: var(--font-serif);
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    margin-bottom: 22px;
+  }
+
+  .principal .descripcion { font-size: 14px; }
+
+  .pie {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .etiquetas { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  .etiqueta { letter-spacing: 0.1em; }
+  .sep { color: var(--muted-2); }
+
+  .accion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--fg);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: gap 180ms ease;
+  }
+
+  .proyecto:hover .accion { gap: 13px; }
+
+  .proximo .cuadro img {
+    filter: grayscale(1);
+    opacity: 0.55;
+  }
+
+  .proximo .nombre,
+  .proximo .descripcion,
+  .proximo .etiquetas,
+  .proximo .pie-cuadro {
+    color: #b8b8b8;
+  }
+
+  .proximo .enlace-titulo { color: #b8b8b8; }
+  .proximo .enlace-titulo:hover { color: #b8b8b8; }
+
+  .proximo .accion {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  .proximo:hover .cuadro img { transform: none; }
+  .proximo:hover .accion { gap: 8px; }
+
+  @media (max-width: 900px) {
+    .rejilla {
+      grid-template-columns: 1fr !important;
+      padding: 28px 0 36px;
+    }
+
+    .proyecto,
+    .proyecto + .proyecto {
+      border-left: none;
+      padding-left: 0;
+      padding-right: 0;
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+    }
+
+    .proyecto:first-child { border-top: none; padding-top: 0; }
+    .proyecto:not(.principal) { padding-top: 28px; }
+
+    .principal .nombre-principal { font-size: 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proyecto { animation: none; }
+    .cuadro img, .accion { transition: none; }
+  }
+</style>

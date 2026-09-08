@@ -35,7 +35,7 @@ Las reglas responsive usan `max-width` porque el diseño base es de escritorio. 
 
 Tres familias de Google Fonts cargadas en el layout base:
 
-- **Geist** para cabeceras y UI. Geométrica, tiene buen espaciado a tamaños grandes y no se pone fea a pesos altos. Alternativa obvia sería Inter, pero Geist tiene más carácter en los pesos medios.
+- **Inter** para cabeceras y UI. Neutral, legible y con excelente espaciado y soporte en todos los pesos.
 - **Lora** para cuerpo de texto y pull quotes. Serif con buenas itálicas, legible en tamaños de lectura (14–16px). Las itálicas se usan para los pull quotes y para el contraste con los títulos en sans.
 - **JetBrains Mono** para etiquetas, metadatos y elementos de UI secundarios. La monoespacia da ritmo visual y distingue la capa de "información sobre el dato" del dato en sí. Tiene ligaduras desactivadas por defecto, que es lo que se quiere aquí.
 
