@@ -1,0 +1,89 @@
+---
+// Logo animado: cicla las 10 variantes del logo con crossfade y las
+// reordena al azar en cada navegación. Usado como versión "carrusel"
+// del logo, tanto suelto (PageLogo) como dentro de Marca.
+import { Image } from 'astro:assets';
+import logo1 from '../assets/logos/logo1.png';
+import logo2 from '../assets/logos/logo2.png';
+import logo3 from '../assets/logos/logo3.png';
+import logo4 from '../assets/logos/logo4.png';
+import logo5 from '../assets/logos/logo5.png';
+import logo6 from '../assets/logos/logo6.png';
+import logo7 from '../assets/logos/logo7.png';
+import logo8 from '../assets/logos/logo8.png';
+import logo9 from '../assets/logos/logo9.png';
+import logo10 from '../assets/logos/logo10.png';
+
+interface Props {
+  size?: number;
+  loading?: 'eager' | 'lazy';
+}
+
+const { size = 72, loading = 'eager' } = Astro.props;
+const logos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10];
+const uid = Math.random().toString(36).slice(2, 9);
+---
+
+<div class="logo-carrusel" id={`logo-carrusel-${uid}`} style={`--carrusel-size: ${size}px`}>
+  {logos.map((logo, i) => (
+    <Image src={logo} alt="" width={136} height={136} loading={i === 0 ? loading : 'lazy'} />
+  ))}
+</div>
+
+<style>
+  /* T=40s (10 logos × 4s), crossfade de 1s solapado entre logos */
+  .logo-carrusel {
+    position: relative;
+    width: var(--carrusel-size);
+    height: var(--carrusel-size);
+    flex-shrink: 0;
+  }
+
+  .logo-carrusel img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    animation: logo-carrusel-cycle 40s infinite;
+  }
+
+  .logo-carrusel img:nth-child(1)  { animation-delay:  0s; }
+  .logo-carrusel img:nth-child(2)  { animation-delay:  4s; }
+  .logo-carrusel img:nth-child(3)  { animation-delay:  8s; }
+  .logo-carrusel img:nth-child(4)  { animation-delay: 12s; }
+  .logo-carrusel img:nth-child(5)  { animation-delay: 16s; }
+  .logo-carrusel img:nth-child(6)  { animation-delay: 20s; }
+  .logo-carrusel img:nth-child(7)  { animation-delay: 24s; }
+  .logo-carrusel img:nth-child(8)  { animation-delay: 28s; }
+  .logo-carrusel img:nth-child(9)  { animation-delay: 32s; }
+  .logo-carrusel img:nth-child(10) { animation-delay: 36s; }
+
+  @keyframes logo-carrusel-cycle {
+    0%     { opacity: 0; }
+    2.5%   { opacity: 1; }
+    10%    { opacity: 1; }
+    12.5%  { opacity: 0; }
+    100%   { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-carrusel img { animation: none; }
+    .logo-carrusel img:nth-child(1) { opacity: 1; }
+  }
+</style>
+
+<script>
+  function shuffleAll() {
+    document.querySelectorAll('.logo-carrusel').forEach((container) => {
+      const imgs = [...container.querySelectorAll('img')];
+      for (let i = imgs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        container.appendChild(imgs[j]);
+        [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
+      }
+    });
+  }
+  document.addEventListener('astro:page-load', shuffleAll);
+</script>

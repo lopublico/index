@@ -1,0 +1,111 @@
+---
+// Componente reutilizable de marca: logo + "Lo público." + eslogan.
+// Pensado para copiarse tal cual a los demás proyectos de Lo Público
+// (contratación, listas de espera, sal de ahí, hablar con un humano)
+// y mantener la identidad de marca consistente entre subdominios.
+//
+// Variantes:
+//  - "header": tamaño de nombre/eslogan para la cabecera del sitio.
+//  - "footer": versión ligeramente más pequeña, para el pie de página.
+//
+// Versiones de logo:
+//  - "basico": logo estático (logo0).
+//  - "carrusel": las 10 variantes del logo, animadas.
+import { Image } from 'astro:assets';
+import LogoCarrusel from './LogoCarrusel.astro';
+import logo0 from '../assets/logos/logo0.png';
+
+interface Props {
+  variant?: 'header' | 'footer';
+  logo?: 'basico' | 'carrusel';
+  href?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const PRESETS = {
+  header: { size: 44, nameSize: '22px', taglineSize: '15px' },
+  footer: { size: 44, nameSize: '18px', taglineSize: '14px' },
+};
+
+const {
+  variant = 'header',
+  logo = 'basico',
+  href = '/',
+  loading = variant === 'header' ? 'eager' : 'lazy',
+} = Astro.props;
+
+const { size, nameSize, taglineSize } = PRESETS[variant];
+const ESLOGAN = 'La transformación digital buena';
+---
+
+<a
+  href={href}
+  class={`marca marca--${variant}`}
+  style={`--marca-size: ${size}px; --marca-name-size: ${nameSize}; --marca-tagline-size: ${taglineSize}`}
+>
+  <div class="marca-logo" aria-hidden="true">
+    {logo === 'carrusel'
+      ? <LogoCarrusel size={size} loading={loading} />
+      : <Image src={logo0} alt="" width={88} height={88} loading={loading} />}
+  </div>
+  <div class="marca-texto">
+    <span class="marca-nombre">Lo público<span class="marca-punto">.</span></span>
+    <span class="marca-eslogan">{ESLOGAN}</span>
+  </div>
+</a>
+
+<style>
+  .marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  .marca-logo {
+    width: var(--marca-size);
+    height: var(--marca-size);
+    flex-shrink: 0;
+  }
+
+  .marca-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  .marca-texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: var(--marca-size);
+    padding-left: 12px;
+    border-left: 1px solid var(--line);
+  }
+
+  .marca-nombre {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--marca-name-size);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--fg);
+  }
+
+  .marca-punto { color: var(--fg); }
+
+  .marca-eslogan {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--marca-tagline-size);
+    line-height: 1;
+    color: var(--muted);
+  }
+
+  @media (max-width: 600px) {
+    .marca--header { width: 100%; }
+  }
+</style>

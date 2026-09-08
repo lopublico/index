@@ -1,19 +1,51 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
+import delicias from '../assets/cuadros/delicias.jpg';
+import vulcano from '../assets/cuadros/vulcano.jpg';
+import ermita from '../assets/cuadros/ermita.jpg';
+import paloma from '../assets/cuadros/paloma.jpg';
 
 const proyectos = [
+  {
+    nombre: 'Sal de ahí',
+    descripcion: 'Monitoriza la presencia en Twitter de administraciones, empresas públicas y representantes del Congreso y el Senado. Una herramienta para evidenciar la dependencia institucional de plataformas privadas y promover las redes federadas.',
+    etiquetas: ['REDES', 'SOBERANÍA DIGITAL'],
+    href: 'https://saldeahi.lopublico.es',
+    cta: 'Entrar',
+    principal: true,
+    cuadro: {
+      src: delicias,
+      alt: 'El jardín de las delicias',
+      titulo: 'El jardín de las delicias',
+      autor: 'El Bosco',
+      año: 'h. 1490',
+    },
+  },
+  {
+    nombre: 'Hablar con un humano',
+    descripcion: 'Qué marcar y qué decir para saltarte los menús automáticos y llegar a una persona en empresas y administraciones. Un directorio colaborativo, sin ánimo de lucro.',
+    etiquetas: ['ATENCIÓN AL CLIENTE', 'IVR'],
+    href: 'https://hablarconunhumano.lopublico.es',
+    cta: 'Entrar',
+    cuadro: {
+      src: paloma,
+      alt: 'La Paloma del Espíritu Santo, rodeada de ángeles y amorcillos',
+      titulo: 'La Paloma del Espíritu Santo, rodeada de ángeles y amorcillos',
+      autor: 'Atrib. Giuseppe Simonelli',
+      año: 's. XVII',
+    },
+  },
   {
     nombre: 'Portal de Contratación',
     descripcion: 'Todos los contratos públicos —licitaciones, adjudicaciones y proveedores— en un único navegador, con filtros por organismo, importe y procedimiento.',
     etiquetas: ['CONTRATOS', 'ADJUDICACIONES'],
     href: 'https://contratacion.lopublico.es',
     cta: 'Próximamente',
-    principal: true,
     proximo: true,
     cuadro: {
-      src: '/vulcano.jpg',
+      src: vulcano,
       alt: 'La fragua de Vulcano',
       titulo: 'La fragua de Vulcano',
       autor: 'Diego Velázquez',
@@ -28,25 +60,11 @@ const proyectos = [
     cta: 'Próximamente',
     proximo: true,
     cuadro: {
-      src: '/ermita.jpg',
+      src: ermita,
       alt: 'La ermita de San Isidro el día de la fiesta',
       titulo: 'La ermita de San Isidro el día de la fiesta',
       autor: 'Francisco de Goya',
       año: '1788',
-    },
-  },
-  {
-    nombre: 'Sal de ahí',
-    descripcion: 'Monitoriza la presencia en Twitter de administraciones, empresas públicas y representantes del Congreso y el Senado. Una herramienta para evidenciar la dependencia institucional de plataformas privadas y promover las redes federadas.',
-    etiquetas: ['REDES', 'SOBERANÍA DIGITAL'],
-    href: 'https://saldeahi.lopublico.es',
-    cta: 'Entrar',
-    cuadro: {
-      src: '/delicias.jpg',
-      alt: 'El jardín de las delicias',
-      titulo: 'El jardín de las delicias',
-      autor: 'El Bosco',
-      año: 'h. 1490',
     },
   },
 ];
@@ -74,7 +92,7 @@ const resto = proyectos.slice(1);
 
         <a href={principal.href} class="enlace-cuadro" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener noreferrer">
           <figure class="cuadro">
-            <img src={principal.cuadro.src} alt={principal.cuadro.alt} width="800" height="600" loading="eager" />
+            <Image src={principal.cuadro.src} alt={principal.cuadro.alt} width={800} height={600} format="webp" quality={70} loading="eager" fetchpriority="high" />
           </figure>
         </a>
         <p class="pie-cuadro">
@@ -102,7 +120,7 @@ const resto = proyectos.slice(1);
         <article class={`proyecto${p.proximo ? ' proximo' : ''}`}>
           <a href={p.href} class="enlace-cuadro" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener noreferrer">
             <figure class="cuadro">
-              <img src={p.cuadro.src} alt={p.cuadro.alt} width="600" height="450" loading="lazy" />
+              <Image src={p.cuadro.src} alt={p.cuadro.alt} width={600} height={450} format="webp" quality={65} loading="lazy" />
             </figure>
           </a>
           <p class="pie-cuadro">
@@ -129,8 +147,6 @@ const resto = proyectos.slice(1);
 
     </section>
   </main>
-
-  <SiteFooter />
 </Layout>
 
 <style>
@@ -208,7 +224,6 @@ const resto = proyectos.slice(1);
     height: 100%;
     object-fit: cover;
     transition: transform 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
-    will-change: transform;
   }
 
   .proyecto:hover .cuadro img { transform: scale(1.03); }
