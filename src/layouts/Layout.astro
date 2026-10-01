@@ -1,5 +1,5 @@
 ---
-import { ClientRouter, fade } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import { Font } from 'astro:assets';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const {
-  title = 'Lo público — La transformación digital buena',
+  title = 'Lo público',
   description = 'Herramientas para fiscalizar el sector público español: contratación, listas de espera, comunicación institucional y más.',
   image = '/og-image.png',
   hideNotice = false,
@@ -47,12 +47,14 @@ const canonical = Astro.url.href;
     <meta name="twitter:image"       content={ogImage} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
     <Font cssVariable="--font-sans" preload />
     <Font cssVariable="--font-serif" preload />
     <Font cssVariable="--font-mono" />
     <ClientRouter />
   </head>
-  <body transition:animate={fade({ duration: '0.4s' })}>
+  <body>
+    <a href="#contenido-principal" class="salto-contenido">Saltar al contenido principal</a>
     {!hideNotice && (
       <div class="mobile-notice" id="mobile-notice" role="alert" aria-live="polite">
         <span class="mobile-notice__text">
@@ -94,6 +96,7 @@ const canonical = Astro.url.href;
     font-size: 14px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -167,8 +170,56 @@ const canonical = Astro.url.href;
     .mobile-notice { display: flex; }
   }
 
+  :focus-visible {
+    outline: 2px solid var(--fg, #000000);
+    outline-offset: 2px;
+  }
+
+  /* ── Salto al contenido principal accesible ──────────────────────────── */
+  .salto-contenido {
+    position: fixed;
+    top: -100px;
+    left: 16px;
+    z-index: 99999;
+    padding: 10px 18px;
+    background: #000000;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 550;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: top 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .salto-contenido:focus {
+    top: 16px;
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  /* ── Screen readers only ──────────────────────────────────────────────── */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
   /* ── Reduced motion ──────────────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
     [transition\:animate] { animation: none !important; }
   }
 </style>
