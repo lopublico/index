@@ -22,7 +22,3 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-
-# temporary and test files
-scratch/
-.playwright-mcp/

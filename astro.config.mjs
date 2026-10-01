@@ -20,13 +20,14 @@ export default defineConfig({
       optimizedFallbacks: true,
     },
     {
-      name: 'Commit Mono',
+      name: 'JetBrains Mono',
       cssVariable: '--font-mono',
-      provider: fontProviders.fontsource(),
-      weights: ['400', '500'],
+      provider: fontProviders.google(),
+      weights: ['400'],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['ui-monospace', 'monospace'],
+      optimizedFallbacks: true,
     },
     {
       name: 'Lora',

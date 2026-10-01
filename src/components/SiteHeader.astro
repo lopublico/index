@@ -7,9 +7,9 @@ interface Props {
 const { currentPath = '/' } = Astro.props;
 
 const navLinks = [
-  { href: '/',      label: 'Inicio' },
-  { href: '/datos',  label: 'Datos' },
-  { href: '/about',  label: 'About' },
+  { href: '/',             label: 'Inicio' },
+  { href: '/acerca',       label: 'Sobre Lo Público' },
+  { href: '/metodologia',  label: 'Metodología' },
 ];
 ---
 
@@ -17,18 +17,14 @@ const navLinks = [
   <Marca variant="header" href="/" />
 
   <nav class="site-nav" aria-label="Navegación principal">
-    {navLinks.map(link => {
-      const isActive = currentPath === link.href;
-      return (
-        <a
-          href={link.href}
-          class={`nav-link${isActive ? ' nav-link--active' : ''}`}
-        >
-          {link.label}
-          {isActive && <span class="nav-active-line" transition:name="nav-active-line" />}
-        </a>
-      );
-    })}
+    {navLinks.map(link => (
+      <a
+        href={link.href}
+        class={`nav-link${currentPath === link.href ? ' nav-link--active' : ''}`}
+      >
+        {link.label}
+      </a>
+    ))}
   </nav>
 </header>
 
@@ -38,75 +34,37 @@ const navLinks = [
     align-items: center;
     justify-content: space-between;
     gap: 32px;
-    padding: 0;
-    margin: 0;
-    height: 44px;
+    padding: 24px 0 20px;
     position: relative;
-    width: 100%;
-    box-sizing: border-box;
   }
 
-  /* ── Minimal editorial navigation (no bulky toggles) ─────────────────── */
   .site-nav {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 24px;
-    background: transparent;
-    padding: 0;
-    border: none;
+    gap: 4px;
   }
 
   .nav-link {
-    position: relative;
-    padding: 4px 0;
+    padding: 5px 10px;
     font-family: var(--font-sans);
-    font-size: 13.5px;
-    font-weight: 450;
+    font-size: 13px;
+    font-weight: 400;
     text-decoration: none;
-    color: var(--muted, #6f6f6f);
-    transition: color 140ms ease;
+    color: var(--fg-2);
+    border-radius: 4px;
+    transition: color 120ms, background 120ms;
     white-space: nowrap;
   }
-
-  .nav-link:hover {
-    color: var(--fg, #000000);
-  }
-
-  .nav-link--active {
-    color: var(--fg, #000000);
-    font-weight: 550;
-  }
-
-  .nav-active-line {
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 1.5px;
-    background: #000000;
-    border-radius: 1px;
-  }
+  .nav-link:hover { color: var(--fg); background: rgba(0, 0, 0, 0.05); }
+  .nav-link--active { color: var(--fg); font-weight: 600; }
 
   /* ── Responsive ───────────────────────────────────────────────────────── */
-  @media (max-width: 680px) {
+  @media (max-width: 600px) {
     .site-header {
-      height: auto;
-      flex-direction: row;
       flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px 20px;
-      padding: 0;
+      gap: 12px 0;
+      padding: 18px 0 14px;
     }
-
-    .site-nav {
-      gap: 18px;
-      width: auto;
-    }
-
-    .nav-link {
-      padding: 4px 0;
-      font-size: 13px;
-    }
+    .site-nav { gap: 2px; width: 100%; }
   }
 </style>

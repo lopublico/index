@@ -29,13 +29,13 @@ const PRESETS = {
 
 const {
   variant = 'header',
-  logo = 'carrusel',
+  logo = 'basico',
   href = '/',
   loading = variant === 'header' ? 'eager' : 'lazy',
 } = Astro.props;
 
 const { size, nameSize, taglineSize } = PRESETS[variant];
-const ESLOGAN = 'La Administración en datos';
+const ESLOGAN = 'La transformación digital buena';
 ---
 
 <a
@@ -46,7 +46,7 @@ const ESLOGAN = 'La Administración en datos';
   <div class="marca-logo" aria-hidden="true">
     {logo === 'carrusel'
       ? <LogoCarrusel size={size} loading={loading} />
-      : <Image src={logo0} alt="" width={size} height={size} loading={loading} />}
+      : <Image src={logo0} alt="" width={88} height={88} loading={loading} />}
   </div>
   <div class="marca-texto">
     <span class="marca-nombre">Lo público<span class="marca-punto">.</span></span>
@@ -62,21 +62,17 @@ const ESLOGAN = 'La Administración en datos';
     text-decoration: none;
     color: inherit;
     flex-shrink: 0;
-    height: var(--marca-size);
   }
 
   .marca-logo {
     width: var(--marca-size);
     height: var(--marca-size);
     flex-shrink: 0;
-    overflow: hidden;
   }
 
   .marca-logo img {
-    width: var(--marca-size);
-    height: var(--marca-size);
-    max-width: var(--marca-size);
-    max-height: var(--marca-size);
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     border-radius: 4px;
   }
@@ -110,9 +106,6 @@ const ESLOGAN = 'La Administración en datos';
   }
 
   @media (max-width: 600px) {
-    .marca--header {
-      width: auto;
-      max-width: 100%;
-    }
+    .marca--header { width: 100%; }
   }
 </style>
