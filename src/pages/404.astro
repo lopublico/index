@@ -1,0 +1,372 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+---
+
+<Layout
+  title="404 — Página no encontrada | Lo público"
+  description="La página solicitada no existe, ha cambiado de dirección o nunca ha sido pública."
+  hideNotice={true}
+>
+  <div class="pantalla">
+    <div class="zona-pagina">
+      <SiteHeader currentPath="/404" />
+
+      <main class="contenido-pagina" id="contenido-principal" tabindex="-1">
+        <div class="error-contenedor">
+          <div class="error-badge">
+            <span class="error-codigo">404</span>
+            <span class="error-separador" aria-hidden="true">·</span>
+            <span class="error-etiqueta">Registro no encontrado</span>
+          </div>
+
+          <h1 class="error-titulo">
+            <span class="error-titulo-sans">Esta página no existe</span><br />
+            <span class="error-titulo-serif">o aún no es <span class="resalte">pública</span>.</span>
+          </h1>
+
+          <p class="error-descripcion">
+            La dirección que has introducido no corresponde a ningún documento, herramienta o conjunto de datos del portal.
+          </p>
+
+          <div class="error-acciones">
+            <a href="/" class="btn-volver">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              <span>Volver al inicio</span>
+            </a>
+            <div class="error-enlaces">
+              <span class="error-enlaces-label">O explora:</span>
+              <a href="/datos" class="enlace-secundario">Datos abiertos</a>
+              <span class="enlace-sep" aria-hidden="true">/</span>
+              <a href="/about" class="enlace-secundario">Acerca de Lo público</a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer abajo del todo de borde a borde de la ventana -->
+    <footer class="pie-ventana">
+      <div class="pie-col-izq">
+        <a rel="me" href="https://mastodon.social/@lopublico" target="_blank" title="@lopublico en Mastodon">Mastodon<span class="sr-only"> (abre en nueva pestaña)</span></a> · <a href="https://bsky.app/profile/lopublico.es" target="_blank" rel="noopener" title="@lopublico.es en Bluesky">Bluesky<span class="sr-only"> (abre en nueva pestaña)</span></a>
+      </div>
+      <div class="pie-col-centro">
+        Por <a href="https://avelrom.es/about/" target="_blank" rel="noopener" class="autor-subrayado">avelrom<span class="sr-only"> (abre en nueva pestaña)</span></a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es" target="_blank" rel="noopener license">CC0 1.0<span class="sr-only"> (abre en nueva pestaña)</span></a>
+      </div>
+      <div class="pie-col-der">
+        Obras del <a href="https://www.museodelprado.es/" target="_blank" rel="noopener">Museo Nacional del Prado<span class="sr-only"> (abre en nueva pestaña)</span></a>
+      </div>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  .pantalla {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .zona-pagina {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: clamp(80px, calc(50vh - 190px), 300px) 32px 80px;
+    box-sizing: border-box;
+  }
+
+  .contenido-pagina {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  /* ── Bloque central de error 404 ────────────────────────────────────────── */
+  .error-contenedor {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .error-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted, #666666);
+    background: #f1efe9;
+    border: 1px solid #e2dfd7;
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+
+  .error-codigo {
+    color: var(--fg, #000000);
+    font-weight: 600;
+  }
+
+  .error-separador {
+    opacity: 0.5;
+  }
+
+  .error-etiqueta {
+    color: #555555;
+  }
+
+  .error-titulo {
+    margin: 0;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .error-titulo-sans {
+    font-family: var(--font-sans);
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 650;
+    color: var(--fg, #000000);
+    letter-spacing: -0.03em;
+  }
+
+  .error-titulo-serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 400;
+    color: var(--fg, #000000);
+    letter-spacing: -0.02em;
+  }
+
+  /* Resalte amarillo sutil: marcador bajo la palabra */
+  .resalte {
+    position: relative;
+    color: var(--fg, #000000);
+    display: inline-block;
+  }
+
+  .resalte::before {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: -2px;
+    right: -2px;
+    height: 9px;
+    background: rgba(255, 213, 74, 0.48);
+    border-radius: 2px;
+    z-index: -1;
+  }
+
+  .error-descripcion {
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #4b4b4b;
+    margin: 0;
+    max-width: 540px;
+  }
+
+  /* ── Acciones de navegación ────────────────────────────────────────────── */
+  .error-acciones {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #000000;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 550;
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 160ms ease,
+                box-shadow 160ms ease;
+  }
+
+  .btn-volver:hover {
+    background: #222222;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  }
+
+  .btn-volver svg {
+    transition: transform 160ms ease;
+  }
+
+  .btn-volver:hover svg {
+    transform: translateX(-3px);
+  }
+
+  .error-enlaces {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted, #666666);
+  }
+
+  .error-enlaces-label {
+    color: var(--muted-2, #888888);
+  }
+
+  .enlace-secundario {
+    color: var(--fg, #000000);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 120ms ease;
+  }
+
+  .enlace-secundario:hover {
+    color: var(--muted, #555555);
+  }
+
+  .enlace-sep {
+    color: #cccccc;
+  }
+
+  /* ── Footer ─────────────────────────────────────────────────────────────── */
+  .pie-ventana {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 32px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--muted-2, #a3a3a3);
+    box-sizing: border-box;
+    white-space: nowrap;
+    border: none;
+    z-index: 10;
+  }
+
+  .pie-col-centro {
+    justify-self: center;
+    white-space: nowrap;
+  }
+
+  .pie-col-der {
+    justify-self: end;
+    white-space: nowrap;
+  }
+
+  .pie-ventana .autor-subrayado {
+    color: #000000;
+    font-weight: 550;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: color 120ms ease;
+  }
+
+  .pie-ventana a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: color 120ms ease;
+  }
+
+  .pie-ventana a:hover {
+    color: var(--fg, #000000);
+  }
+
+  /* ── Responsive móvil ─────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .pantalla {
+      justify-content: flex-start;
+      min-height: 100dvh;
+      overflow-y: auto;
+    }
+
+    .zona-pagina {
+      padding: 32px 20px 24px;
+    }
+
+    .contenido-pagina {
+      margin-top: 36px;
+    }
+
+    .error-contenedor {
+      gap: 16px;
+    }
+
+    .error-titulo-sans,
+    .error-titulo-serif {
+      font-size: 30px;
+    }
+
+    .error-descripcion {
+      font-size: 14px;
+    }
+
+    .error-acciones {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .btn-volver {
+      width: 100%;
+      justify-content: center;
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+
+    .error-enlaces {
+      width: 100%;
+      flex-wrap: wrap;
+      font-size: 12px;
+    }
+
+    .pie-ventana {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      text-align: center;
+      white-space: normal;
+      padding: 36px 20px 32px;
+      margin-top: auto;
+    }
+
+    .pie-col-izq {
+      display: block;
+    }
+
+    .pie-col-der {
+      justify-self: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-volver,
+    .btn-volver svg {
+      transition: none;
+    }
+  }
+</style>

@@ -40,7 +40,7 @@ const proyectos = [
     subtitulo: 'Declaraciones de bienes de diputados, senadores y ministros',
     descripcion: 'Declaraciones de bienes e intereses de los 350 diputados, 265 senadores y miembros del Gobierno de la XV Legislatura. Inmuebles, vehículos, deuda y rentas en un dataset unificado.',
     etiquetas: ['Patrimonio', 'Transparencia'],
-    href: 'https://parlamentarios.lopublico.es',
+    href: 'https://lascortesysusbienes.lopublico.es',
     proximo: false,
     imagen: enrique_iii,
     alt: 'Episodio del reinado de Enrique III de Castilla',
@@ -160,7 +160,9 @@ const ordenados = [...proyectos].sort((a, b) => Number(!!b.pinned) - Number(!!a.
 
     <!-- Footer abajo del todo, de borde a borde de la ventana -->
     <footer class="pie-ventana">
-      <div class="pie-col-izq" aria-hidden="true"></div>
+      <div class="pie-col-izq">
+        <a rel="me" href="https://mastodon.social/@lopublico" target="_blank" title="@lopublico en Mastodon">Mastodon<span class="sr-only"> (abre en nueva pestaña)</span></a> · <a href="https://bsky.app/profile/lopublico.es" target="_blank" rel="noopener" title="@lopublico.es en Bluesky">Bluesky<span class="sr-only"> (abre en nueva pestaña)</span></a>
+      </div>
       <div class="pie-col-centro">
         Por <a href="https://avelrom.es/about/" target="_blank" rel="noopener" class="autor-subrayado">avelrom<span class="sr-only"> (abre en nueva pestaña)</span></a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es" target="_blank" rel="noopener license">CC0 1.0<span class="sr-only"> (abre en nueva pestaña)</span></a>
       </div>
@@ -844,7 +846,7 @@ const ordenados = [...proyectos].sort((a, b) => Number(!!b.pinned) - Number(!!a.
     }
 
     .pie-col-izq {
-      display: none;
+      display: block;
     }
 
     .pie-col-der {
