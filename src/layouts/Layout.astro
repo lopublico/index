@@ -12,7 +12,7 @@ interface Props {
 const {
   title = 'Lo público',
   description = 'Herramientas para fiscalizar el sector público español: contratación, listas de espera, comunicación institucional y más.',
-  image = '/og-image.png',
+  image = '/og-horizontal.png',
   hideNotice = false,
 } = Astro.props;
 
@@ -37,6 +37,9 @@ const canonical = Astro.url.href;
     <meta property="og:image"       content={ogImage} />
     <meta property="og:image:width"  content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image"        content={`${siteBase}/og-cuadrada.png`} />
+    <meta property="og:image:width"  content="1080" />
+    <meta property="og:image:height" content="1080" />
     <meta property="og:locale"      content="es_ES" />
     <meta property="og:site_name"   content="Lo público" />
 
