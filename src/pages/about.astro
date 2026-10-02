@@ -1,0 +1,750 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+---
+
+<Layout
+  title="Lo público — About"
+  description="Lo público es un portal independiente de la sociedad civil para hacer visible y fiscalizable la información de las administraciones públicas."
+  hideNotice={true}
+>
+  <div class="pantalla">
+    <div class="zona-pagina">
+      <SiteHeader currentPath="/about" />
+
+      <main class="contenido-pagina" id="contenido-principal" tabindex="-1">
+        <h1 class="sr-only">Lo público — Acerca del proyecto</h1>
+        <div class="about-texto">
+          <section class="about-col">
+            <h2 class="about-col-titulo">El proyecto</h2>
+            <p>
+              Lo público es un portal independiente y sin ánimo de lucro que busca fiscalizar y hacer accesible la información de las administraciones públicas en España. Demuestra que la apertura y la claridad institucional son una cuestión de voluntad y diseño.
+            </p>
+          </section>
+
+          <section class="about-col">
+            <h2 class="about-col-titulo">Metodología y datos</h2>
+            <p>
+              Cada herramienta funciona como una plataforma autónoma en la que se detalla cada metodología. Todas las bases de datos se publican en Zenodo con <strong>licencia de dominio público</strong> (CC0 1.0): se pueden compartir y adaptar para cualquier propósito, incluso comercial.
+            </p>
+          </section>
+
+          <section class="about-col">
+            <h2 class="about-col-titulo">Autoría</h2>
+            <p>
+              Plataforma impulsada por <a href="https://avelrom.es/about/" target="_blank" rel="noopener">avelrom<span class="sr-only"> (abre en nueva pestaña)</span></a>.
+              Puedes ponerte en contacto a través de <button type="button" class="enlace-contacto" data-abrir-contacto>este formulario</button> para sugerencias, correcciones, etc.
+            </p>
+          </section>
+        </div>
+
+        <div class="about-cierre">
+          <p class="about-lema-titulo">
+            <span class="about-lema-sans">De la sociedad civil,</span><br />
+            <span class="about-lema-serif">para la <span class="resalte">sociedad civil</span>.</span>
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer abajo del todo de borde a borde de la ventana -->
+    <footer class="pie-ventana">
+      <div class="pie-col-izq" aria-hidden="true"></div>
+      <div class="pie-col-centro">
+        Por <a href="https://avelrom.es/about/" target="_blank" rel="noopener" class="autor-subrayado">avelrom<span class="sr-only"> (abre en nueva pestaña)</span></a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es" target="_blank" rel="noopener license">CC0 1.0<span class="sr-only"> (abre en nueva pestaña)</span></a>
+      </div>
+      <div class="pie-col-der">
+        Obras del <a href="https://www.museodelprado.es/" target="_blank" rel="noopener">Museo Nacional del Prado<span class="sr-only"> (abre en nueva pestaña)</span></a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Modal de contacto -->
+  <dialog class="modal" id="modal-contacto" aria-labelledby="contacto-titulo">
+    <div class="modal-panel">
+      <button class="modal-cerrar" type="button" data-cerrar aria-label="Cerrar">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="modal-cabecera">
+        <h2 id="contacto-titulo" class="modal-titulo">Contacto</h2>
+        <p class="modal-subtitulo">Sugerencias, correcciones o colaboraciones</p>
+      </div>
+
+      <form class="contacto-form" id="form-contacto">
+        <div class="contacto-campo">
+          <label for="contacto-email" class="contacto-label">Tu correo electrónico</label>
+          <input
+            type="email"
+            id="contacto-email"
+            name="email"
+            required
+            aria-required="true"
+            autocomplete="email"
+            placeholder="ejemplo@correo.es"
+            class="contacto-input"
+          />
+        </div>
+
+        <div class="contacto-campo">
+          <label for="contacto-asunto" class="contacto-label">Asunto o proyecto</label>
+          <input
+            type="text"
+            id="contacto-asunto"
+            name="asunto"
+            placeholder="Sal de ahí, Decreto Maricarmen, datos..."
+            class="contacto-input"
+          />
+        </div>
+
+        <div class="contacto-campo">
+          <label for="contacto-mensaje" class="contacto-label">Mensaje</label>
+          <textarea
+            id="contacto-mensaje"
+            name="mensaje"
+            rows="4"
+            required
+            aria-required="true"
+            placeholder="Escribe tu mensaje o sugerencia..."
+            class="contacto-textarea"
+          ></textarea>
+        </div>
+
+        <div class="contacto-trampa" aria-hidden="true">
+          <label for="contacto-web">No rellenar</label>
+          <input type="text" id="contacto-web" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div id="contacto-turnstile"></div>
+
+        <div class="contacto-pie">
+          <button type="submit" class="contacto-btn-enviar">
+            <span>Enviar mensaje</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+          <span class="contacto-nota">O a través de <a href="https://avelrom.es/about/" target="_blank" rel="noopener">avelrom.es<span class="sr-only"> (abre en nueva pestaña)</span></a></span>
+        </div>
+
+        <p class="contacto-privacidad">Las comunicaciones con amenazas o contenido ilícito se denunciarán ante las autoridades competentes, facilitando los registros técnicos de los proveedores del servicio.</p>
+
+        <div class="contacto-exito" id="contacto-exito" style="display: none;" role="status">
+          <p class="contacto-exito-texto">
+            ✓ Mensaje enviado. ¡Gracias por colaborar!
+          </p>
+        </div>
+
+        <div class="contacto-error" id="contacto-error" style="display: none;" role="alert">
+          <p class="contacto-error-texto"></p>
+        </div>
+      </form>
+    </div>
+  </dialog>
+</Layout>
+
+<style>
+  /* ── Pantalla completa con header fijo a la misma altura en todas las páginas ── */
+  .pantalla {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .zona-pagina {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: clamp(80px, calc(50vh - 190px), 300px) 32px 80px;
+    box-sizing: border-box;
+  }
+
+  .contenido-pagina {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  /* ── Bloques de texto sobrios sin cards ────────────────────────────────── */
+  .about-texto {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .about-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .about-col-titulo {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--fg, #000000);
+    margin: 0;
+  }
+
+  .about-col p {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.65;
+    color: #4b4b4b;
+    margin: 0;
+  }
+
+  .about-col a {
+    color: var(--fg, #000000);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 120ms ease;
+  }
+
+  .about-col a:hover {
+    color: var(--fg-2, #262626);
+  }
+
+  /* ── Cierre centrado con énfasis: De la sociedad civil, para la sociedad civil ── */
+  .about-cierre {
+    margin-top: 20px;
+    padding: 28px 12px;
+    text-align: center;
+    width: 100%;
+    overflow: hidden; /* recorta el anillo gigante del resalte */
+    isolation: isolate;
+  }
+
+  .about-lema-titulo {
+    margin: 0;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .about-lema-sans {
+    font-family: var(--font-sans);
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 650;
+    color: var(--fg, #000000);
+    letter-spacing: -0.025em;
+  }
+
+  /* Resalte amarillo: un arco de un anillo enorme que se dibuja detrás del texto */
+  .resalte {
+    position: relative;
+    color: var(--fg, #000000);
+  }
+
+  .resalte::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% 0;
+    width: 650%;
+    aspect-ratio: 1 / 1;
+    z-index: -1;
+    border: 1.1em solid #ffe97a;
+    border-radius: 50%;
+    transition: --mask-progress 0.5s;
+    transition-delay: 0.3s;
+    mask-image: conic-gradient(from -9deg, #000 var(--mask-progress), #0000 0);
+    -webkit-mask-image: conic-gradient(from -9deg, #000 var(--mask-progress), #0000 0);
+  }
+
+  @starting-style {
+    .resalte::before {
+      --mask-progress: 0%;
+    }
+  }
+
+  @property --mask-progress {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 5%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .resalte::before {
+      transition: none;
+    }
+  }
+
+  .about-lema-serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(20px, 2.5vw, 27px);
+    font-weight: 400;
+    color: var(--muted, #6f6f6f);
+    letter-spacing: -0.015em;
+  }
+
+  /* ── Footer abajo del todo de borde a borde de la ventana ─────────────── */
+  .pie-ventana {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 32px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--muted-2, #a3a3a3);
+    box-sizing: border-box;
+    white-space: nowrap;
+    border: none;
+    z-index: 10;
+  }
+
+  .pie-col-izq {
+    /* Mantiene centrada la columna del medio equilibrando con la derecha */
+  }
+
+  .pie-col-centro {
+    justify-self: center;
+    white-space: nowrap;
+  }
+
+  .pie-col-der {
+    justify-self: end;
+    white-space: nowrap;
+  }
+
+  .pie-ventana .autor-subrayado {
+    color: #000000;
+    font-weight: 550;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .pie-ventana a {
+    color: inherit;
+    transition: color 120ms;
+  }
+
+  .pie-ventana a:hover {
+    color: var(--fg, #000000);
+  }
+
+  /* ── Botón inline de contacto que parece texto con enlace ─────────────── */
+  .enlace-contacto {
+    color: var(--fg, #000000);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline;
+    transition: color 120ms ease;
+  }
+
+  .enlace-contacto:hover {
+    color: #4b4b4b;
+  }
+
+  /* ── Modal de contacto moderno ────────────────────────────────────────── */
+  .modal {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: auto;
+    width: min(460px, calc(100vw - 32px));
+    max-height: calc(100vh - 40px);
+    overflow: visible;
+  }
+
+  .modal::backdrop {
+    background: rgba(10, 10, 10, 0.42);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .modal[open] {
+    animation: modal-entra 190ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .modal[open]::backdrop {
+    animation: modal-fade 190ms ease-out;
+  }
+
+  .modal-panel {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    padding: 30px 28px 24px;
+    color: var(--fg, #000000);
+    box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.22),
+                0 0 0 1px rgba(0, 0, 0, 0.03);
+  }
+
+  .modal-cerrar {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--muted, #6f6f6f);
+    background: #f4f4f4;
+    border: none;
+    cursor: pointer;
+    transition: color 120ms, background 120ms, transform 120ms;
+  }
+
+  .modal-cerrar::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+  }
+
+  .modal-cerrar:hover {
+    color: var(--fg, #000000);
+    background: #e8e8e8;
+    transform: scale(1.08);
+  }
+
+  .modal-cabecera {
+    margin-bottom: 14px;
+    padding-right: 28px;
+  }
+
+  .modal-titulo {
+    font-family: var(--font-sans);
+    font-size: 22px;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin: 0 0 4px;
+    color: var(--fg, #000000);
+  }
+
+  .modal-subtitulo {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--muted, #6f6f6f);
+    margin: 0;
+  }
+
+  .contacto-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .contacto-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contacto-label {
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    font-weight: 550;
+    color: var(--fg, #000000);
+    letter-spacing: -0.01em;
+  }
+
+  .contacto-input,
+  .contacto-textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--line, #e5e5e5);
+    background: #fafaf9;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--fg, #000000);
+    box-sizing: border-box;
+    transition: border-color 140ms ease, background 140ms ease;
+    outline: none;
+  }
+
+  .contacto-input:focus,
+  .contacto-textarea:focus {
+    border-color: #000000;
+    background: #ffffff;
+  }
+
+  .contacto-textarea {
+    resize: vertical;
+    min-height: 75px;
+    line-height: 1.5;
+  }
+
+  .contacto-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  .contacto-btn-enviar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: #000000;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 150ms ease, transform 150ms ease;
+  }
+
+  .contacto-btn-enviar:hover {
+    background: #242424;
+    transform: translateY(-1px);
+  }
+
+  .contacto-nota {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted, #6f6f6f);
+  }
+
+  .contacto-nota a {
+    text-decoration: underline;
+    color: var(--fg, #000000);
+  }
+
+  .contacto-exito {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+  }
+
+  .contacto-exito-texto {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: #166534;
+    margin: 0;
+  }
+
+  .contacto-trampa {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .contacto-privacidad {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted, #6f6f6f);
+    margin: 0;
+  }
+
+  .contacto-btn-enviar:disabled {
+    opacity: 0.6;
+    cursor: default;
+    transform: none;
+  }
+
+  .contacto-error {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+  }
+
+  .contacto-error-texto {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: #991b1b;
+    margin: 0;
+  }
+
+  @keyframes modal-entra {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @keyframes modal-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ── Responsive ───────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .pantalla {
+      min-height: 100vh;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    .zona-pagina {
+      padding: 24px 20px 48px;
+    }
+
+    .contenido-pagina {
+      margin-top: 20px;
+      min-height: auto;
+    }
+
+    .about-texto {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .about-cierre {
+      margin-top: 8px;
+    }
+
+    .pie-ventana {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      text-align: center;
+      white-space: normal;
+      padding: 24px 20px 32px;
+      margin-top: auto;
+    }
+
+    .pie-col-izq {
+      display: none;
+    }
+
+    .pie-col-der {
+      justify-self: center;
+    }
+
+    .contacto-input,
+    .contacto-textarea {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<script>
+  const ENDPOINT = import.meta.env.PUBLIC_CONTACT_ENDPOINT || 'https://lopublico-contacto.report-erratum.workers.dev';
+  const SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '0x4AAAAAAFKct2rXURJNI5Eg';
+  let widgetId: string | undefined;
+
+  function cargarTurnstile(): Promise<void> {
+    if ((window as any).turnstile) return Promise.resolve();
+    return new Promise((ok, ko) => {
+      const s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true;
+      s.onload = () => ok();
+      s.onerror = () => ko();
+      document.head.appendChild(s);
+    });
+  }
+
+  async function montarTurnstile() {
+    const cont = document.getElementById('contacto-turnstile');
+    if (!cont || cont.childElementCount) return;
+    try {
+      await cargarTurnstile();
+      widgetId = (window as any).turnstile.render(cont, { sitekey: SITEKEY, language: 'es' });
+    } catch {}
+  }
+
+  function iniciarContacto() {
+    const btnAbrir = document.querySelector<HTMLButtonElement>('[data-abrir-contacto]');
+    const modal = document.getElementById('modal-contacto') as HTMLDialogElement | null;
+    const form = document.getElementById('form-contacto') as HTMLFormElement | null;
+    const exito = document.getElementById('contacto-exito');
+    const error = document.getElementById('contacto-error');
+
+    if (btnAbrir && modal) {
+      btnAbrir.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.showModal();
+        montarTurnstile();
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        const t = e.target as HTMLElement;
+        if (t === modal || t.closest('[data-cerrar]')) {
+          modal.close();
+        }
+      });
+    }
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const boton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+        const textoError = error?.querySelector('p');
+        const mostrarError = (msg: string) => {
+          if (textoError) textoError.textContent = msg;
+          if (error) error.style.display = 'block';
+        };
+        if (error) error.style.display = 'none';
+
+        const datos = new FormData(form);
+        const turnstileToken = (window as any).turnstile?.getResponse(widgetId) || '';
+        if (!turnstileToken) {
+          mostrarError('Espera a que termine la verificación e inténtalo de nuevo.');
+          return;
+        }
+
+        if (boton) boton.disabled = true;
+        try {
+          const res = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: datos.get('email'),
+              asunto: datos.get('asunto'),
+              mensaje: datos.get('mensaje'),
+              website: datos.get('website'),
+              turnstile: turnstileToken,
+            }),
+          });
+          const r = await res.json().catch(() => ({}));
+          if (!res.ok || !r.ok) throw new Error(r.error || 'No se pudo enviar el mensaje.');
+
+          if (exito) exito.style.display = 'block';
+          form.reset();
+          setTimeout(() => {
+            modal?.close();
+            if (exito) exito.style.display = 'none';
+          }, 2400);
+        } catch (err) {
+          mostrarError(`${(err as Error).message} Puedes escribirnos por avelrom.es.`);
+        } finally {
+          if (boton) boton.disabled = false;
+          (window as any).turnstile?.reset(widgetId);
+        }
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', iniciarContacto);
+</script>

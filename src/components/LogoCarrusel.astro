@@ -1,7 +1,8 @@
 ---
-// Logo animado: cicla las 10 variantes del logo con crossfade y las
-// reordena al azar en cada navegación. Usado como versión "carrusel"
-// del logo, tanto suelto (PageLogo) como dentro de Marca.
+// Logo animado: cicla las 10 variantes del logo con crossfade. El orden es
+// aleatorio pero fijo durante la sesión, y el ciclo continúa entre páginas
+// (reloj compartido en sessionStorage). Usado como versión "carrusel" del
+// logo, tanto suelto (PageLogo) como dentro de Marca.
 import { Image } from 'astro:assets';
 import logo1 from '../assets/logos/logo1.png';
 import logo2 from '../assets/logos/logo2.png';
@@ -75,15 +76,55 @@ const uid = Math.random().toString(36).slice(2, 9);
 </style>
 
 <script>
-  function shuffleAll() {
-    document.querySelectorAll('.logo-carrusel').forEach((container) => {
-      const imgs = [...container.querySelectorAll('img')];
-      for (let i = imgs.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        container.appendChild(imgs[j]);
-        [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
-      }
+  // Cada navegación sustituye el DOM y el CSS reinicia las animaciones. Para que
+  // el logo no se reinicie, el punto del ciclo se calcula a partir de un instante
+  // de inicio común y se aplica como animation-delay negativo en cada página.
+  const CICLO = 40; // s, igual que la animación CSS
+  const PASO = 4;   // s que permanece cada logo
+  const CLAVE_INICIO = 'logo-carrusel-inicio';
+  const CLAVE_ORDEN = 'logo-carrusel-orden';
+
+  function leer(clave: string): string | null {
+    try { return sessionStorage.getItem(clave); } catch { return null; }
+  }
+
+  function guardar(clave: string, valor: string) {
+    try { sessionStorage.setItem(clave, valor); } catch {}
+  }
+
+  let inicio = Number(leer(CLAVE_INICIO)) || Date.now();
+  guardar(CLAVE_INICIO, String(inicio));
+
+  let ordenGuardado: number[] | null = null;
+
+  function orden(n: number): number[] {
+    if (ordenGuardado?.length === n) return ordenGuardado;
+    try {
+      const g = JSON.parse(leer(CLAVE_ORDEN) || 'null');
+      if (Array.isArray(g) && g.length === n) return (ordenGuardado = g);
+    } catch {}
+    const o = Array.from({ length: n }, (_, i) => i);
+    for (let i = n - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [o[i], o[j]] = [o[j], o[i]];
+    }
+    guardar(CLAVE_ORDEN, JSON.stringify(o));
+    return (ordenGuardado = o);
+  }
+
+  function sincronizar() {
+    const t = ((Date.now() - inicio) / 1000) % CICLO;
+    document.querySelectorAll('.logo-carrusel').forEach((contenedor) => {
+      const imgs = [...contenedor.querySelectorAll('img')];
+      const o = orden(imgs.length);
+      imgs.forEach((img, i) => {
+        img.style.animationDelay = `${o.indexOf(i) * PASO - t}s`;
+      });
     });
   }
-  document.addEventListener('astro:page-load', shuffleAll);
+
+  sincronizar();
+  // after-swap: justo tras sustituir el DOM, antes de pintar; page-load: carga inicial
+  document.addEventListener('astro:after-swap', sincronizar);
+  document.addEventListener('astro:page-load', sincronizar);
 </script>

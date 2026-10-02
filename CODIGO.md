@@ -37,7 +37,7 @@ Tres familias de Google Fonts cargadas en el layout base:
 
 - **Inter** para cabeceras y UI. Neutral, legible y con excelente espaciado y soporte en todos los pesos.
 - **Lora** para cuerpo de texto y pull quotes. Serif con buenas itálicas, legible en tamaños de lectura (14–16px). Las itálicas se usan para los pull quotes y para el contraste con los títulos en sans.
-- **JetBrains Mono** para etiquetas, metadatos y elementos de UI secundarios. La monoespacia da ritmo visual y distingue la capa de "información sobre el dato" del dato en sí. Tiene ligaduras desactivadas por defecto, que es lo que se quiere aquí.
+- **Commit Mono** (commitmono.com) para etiquetas, metadatos y elementos de UI secundarios. Monoespacio neutral y legible que da ritmo visual y distingue la capa de metadatos del contenido.
 
 Las fuentes se preconectan en el `<head>` antes de la hoja de estilos para reducir el tiempo de carga. El `display=swap` de Google Fonts evita el FOIT.
 
@@ -51,7 +51,7 @@ El portal tiene cuatro componentes:
 
 **`SiteHeader.astro`** — Acepta `currentPath` para marcar el enlace activo. Los enlaces de navegación están definidos como un array en el frontmatter, así añadir una página nueva es una línea.
 
-**`SiteFooter.astro`** — AVELROM con enlace al blog, licencia CC-BY, GitLab y la nota sobre el Prado. El footer es un elemento independiente fuera del contenedor `.page`, con su propio `<div class="footer-content">` interior que aplica el mismo `max-width` y padding que el resto del sitio. Así el fondo del footer puede ocupar el ancho completo sin necesidad de márgenes negativos.
+**`SiteFooter.astro`** — AVELROM con enlace al blog, licencia CC0, GitLab y la nota sobre el Prado. El footer es un elemento independiente fuera del contenedor `.page`, con su propio `<div class="footer-content">` interior que aplica el mismo `max-width` y padding que el resto del sitio. Así el fondo del footer puede ocupar el ancho completo sin necesidad de márgenes negativos.
 
 **Páginas** — `index.astro`, `acerca.astro`, `metodologia.astro`. Cada una importa `Layout`, `SiteHeader` y `SiteFooter`, y define su propio CSS con ámbito en un bloque `<style>` al final.
 
