@@ -1,0 +1,204 @@
+---
+// MANUAL DE MARCA de Lo Público (/manual). Solo existe con `astro dev` (ver astro.config.mjs): no se despliega ni entra en el build.
+// Sirve para unificar criterios entre los proyectos: colores, tipografías, logos, cabeceras, pies, tarjetas y avisos.
+// Usa los componentes REALES de este repo; lo que se vea aquí es lo que sale en producción.
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Marca from '../components/Marca.astro';
+import LogoCarrusel from '../components/LogoCarrusel.astro';
+import delicias from '../assets/cuadros/delicias.jpg';
+import maricarmen from '../assets/cuadros/maricarmen_v3.jpg';
+import ermita from '../assets/cuadros/ermita.jpg';
+
+const logos = Object.entries(import.meta.glob('../assets/logos/*.png', { eager: true, import: 'default' }))
+  .sort(([a], [b]) => a.localeCompare(b, 'es', { numeric: true })) as [string, ImageMetadata][];
+
+// Tokens de index (fuente de verdad: src/layouts/Layout.astro)
+const colores = [
+  ['--bg', '#ffffff', 'Fondo'], ['--fg', '#000000', 'Texto'], ['--fg-2', '#1a1a1a', 'Texto secundario'],
+  ['--muted', '#6f6f6f', 'Apagado'], ['--muted-2', '#a3a3a3', 'Apagado 2'], ['--line', '#e5e5e5', 'Línea'],
+  ['--line-strong', '#d4d4d4', 'Línea fuerte'], ['--hover-bg', '#fafafa', 'Hover'],
+];
+// Semánticos de los directos de votación (votaciones-vivienda): únicos colores «de datos»
+const votos = [['A favor', '#30a46c'], ['En contra', '#e5484d'], ['Abstención', '#f5a524'], ['No vota', '#8b8d98']];
+
+// Estado real de cada proyecto (revisado a mano: actualizar al cambiar algo)
+const proyectos = [
+  { n: 'index', puerto: 4322, fuentes: 'Inter · Commit Mono · Lora', fondo: 'Blanco', nota: 'EXCEPCIÓN y referencia: cabecera con Marca, tarjetas con cuadros, pie con CC0.' },
+  { n: 'saldeahi', puerto: 4323, fuentes: 'Inter · Commit Mono · Lora', fondo: 'Blanco / oscuro (#1f1f1f)', nota: 'Tokens shadcn (accent, muted-foreground).' },
+  { n: 'parlamentarios', puerto: 4324, fuentes: 'Inter · Commit Mono · Lora', fondo: 'Blanco', nota: 'Fondo y grises propios (--fg-2, --fg-3).' },
+  { n: 'votaciones-vivienda', puerto: 4326, fuentes: 'Geist Sans · Commit Mono (Inter en el cartel)', fondo: 'Radix slate (#fcfcfd / #111113)', nota: 'EXCEPCIÓN: identidad propia, no se unifica.' },
+];
+// Dónde vive cada pieza en cada proyecto (rutas relativas a lopublico/) y su URL pública
+const refs = [
+  { n: 'index', url: 'https://lopublico.es', cab: 'index/src/components/SiteHeader.astro + Marca.astro', pie: 'index/src/components/SiteFooter.astro (y .pie-ventana en src/pages/index.astro)', logo: 'index/src/assets/logos/logo0-10.png', tarj: 'index/src/pages/index.astro' },
+  { n: 'saldeahi', url: 'https://saldeahi.lopublico.es', cab: 'saldeahi/src/components/Topbar.astro', pie: 'saldeahi/src/layouts/Layout.astro (.lo-footer)', logo: 'saldeahi/public/logos/logo0-10.png', tarj: '—' },
+  { n: 'parlamentarios (incluye ¿Es rentista?, esrentista.lopublico.es)', url: 'https://lascortesysusbienes.lopublico.es', cab: 'parlamentarios/src/layouts/Layout.astro (logo según sección)', pie: 'parlamentarios/src/layouts/Layout.astro', logo: 'parlamentarios/public/logos/parlamentarios.png · esrentista.png', tarj: '—' },
+  { n: 'votaciones-vivienda', url: 'https://decretomaricarmen.lopublico.es', cab: 'votaciones-vivienda/src/pages/portal.astro (.hd)', pie: 'votaciones-vivienda/src/pages/portal.astro (.ft)', logo: 'votaciones-vivienda/public/logos/logo0.webp + maricarmen.webp', tarj: '—' },
+  { n: 'seguimiento-votaciones-senado', url: '(privado, sin desplegar)', cab: '—', pie: '—', logo: '—', tarj: '— (directo genérico: src/dev-pages/en-vivo.astro)' },
+];
+const pendientes = [
+  ['Hecho', 'Tipografía: Commit Mono + Inter + Lora autoalojadas con @fontsource en saldeahi y parlamentarios (sin Google Fonts ni CDN). Pendiente: src/pages/fediverso.html de saldeahi sigue con Space Grotesk y Google Fonts.'],
+  ['Decidido', 'Cabecera: logo PROPIO del proyecto (la P con un fondo distinto por proyecto) + título + «Lo Público» como subtítulo. Estructura de referencia: la de parlamentarios (lascortesysusbienes). saldeahi la misma, en negro y con su borde actual, con sus enlaces propios. El logo rotatorio es exclusivo de lopublico.es.'],
+  ['Decidido', 'Pie: el de parlamentarios como base para saldeahi.'],
+  ['Decidido', 'Colores base y modo oscuro: una paleta neutra común y modo oscuro en TODOS los proyectos (menos las excepciones).'],
+  ['Hecho', 'Logos: un logo por proyecto con la P y fondo propio: saldeahi (Bosco), parlamentarios (Enrique III) y ¿Es rentista? (Venecia).'],
+  ['Decidido', 'Tarjeta de proyecto: no se extrae a componente; queda documentada aquí como referencia y de ella nacen los proyectos nuevos (ver «Plantilla de proyecto nuevo»).'],
+];
+const excepciones = 'index (es la propia marca, y sus tokens son la referencia) y decretomaricarmen (identidad propia de campaña: Radix, carteles) quedan fuera de la unificación.';
+---
+<Layout title="Manual de marca · Lo público (solo local)" hideNotice={true}>
+  <main class="page manual" id="contenido-principal">
+    <p class="aviso">Página solo para desarrollo (<code>astro dev</code>). No se despliega.</p>
+    <h1>Manual de marca</h1>
+    <p class="lead">Componentes y estilos de Lo Público y de sus proyectos, para unificar criterios. Los bloques «real» son los componentes de este repo.</p>
+    <nav class="toc"><a href="#colores">Colores</a><a href="#tipografia">Tipografía</a><a href="#logos">Logos</a><a href="#cabecera">Cabecera</a><a href="#pie">Pie</a><a href="#tarjetas">Tarjetas</a><a href="#elementos">Elementos</a><a href="#proyectos">Proyectos</a><a href="#referencias">Referencias</a><a href="#plantilla">Plantilla</a><a href="#pendientes">Por unificar</a></nav>
+
+    <section id="colores">
+      <h2>Colores</h2>
+      <div class="swatches">
+        {colores.map(([v, h, l]) => <div class="sw"><i style={`background:${h}`}></i><b>{l}</b><code>{v}</code><code>{h}</code></div>)}
+      </div>
+      <h3>Datos (votaciones)</h3>
+      <div class="swatches">
+        {votos.map(([l, h]) => <div class="sw"><i style={`background:${h}`}></i><b>{l}</b><code>{h}</code></div>)}
+      </div>
+    </section>
+
+    <section id="tipografia">
+      <h2>Tipografía</h2>
+      <div class="tipo" style="font-family:var(--font-sans)"><small>Inter · --font-sans (interfaz)</small><p class="g">Quién ha votado qué</p><p>La Administración en datos. 0123456789 — Texto de interfaz 400 · <b>550</b> · <b style="font-weight:700">700</b></p></div>
+      <div class="tipo" style="font-family:var(--font-mono)"><small>Commit Mono · --font-mono (datos, etiquetas)</small><p class="g">350 diputados · 265 senadores</p><p>0123456789 · 172 – 178 · 2026-10-02</p></div>
+      <div class="tipo" style="font-family:var(--font-serif)"><small>Lora · --font-serif (texto largo y pies de obra)</small><p class="g">El jardín de las delicias</p><p>Obras del Museo Nacional del Prado. <em>Cursiva para créditos.</em></p></div>
+    </section>
+
+    <section id="logos">
+      <h2>Logos</h2>
+      <div class="logos">
+        {logos.map(([ruta, img]) => <figure><Image src={img} alt="" width={64} height={64} /><figcaption>{ruta.split('/').pop()}</figcaption></figure>)}
+      </div>
+      <h3>Marca (componente real)</h3>
+      <div class="fila"><div class="caja"><small>header · carrusel</small><Marca variant="header" href="#logos" /></div><div class="caja"><small>header · básico</small><Marca variant="header" logo="basico" href="#logos" /></div><div class="caja"><small>footer</small><Marca variant="footer" href="#logos" /></div></div>
+      <h3>Carrusel</h3>
+      <div class="caja"><LogoCarrusel size={64} /></div>
+    </section>
+
+    <section id="cabecera">
+      <h2>Cabecera <small>real · SiteHeader</small></h2>
+      <div class="caja ancha"><SiteHeader currentPath="/datos" /></div>
+    </section>
+
+    <section id="pie">
+      <h2>Pie <small>real · SiteFooter</small></h2>
+      <div class="caja ancha sinpad"><SiteFooter /></div>
+    </section>
+
+    <section id="tarjetas">
+      <h2>Tarjetas de proyecto</h2>
+      <div class="tarjetas">
+        {[[delicias, 'Sal de ahí', 'Presencia de las instituciones públicas en X vs redes federadas', ''], [maricarmen, 'Decreto Maricarmen', '¿Quién ha votado qué? Ponles cara', 'pin'], [ermita, 'Listas de Espera', 'Cuánto se espera en sanidad y dependencia', 'proximo']].map(([img, n, s, k]) => (
+          <div class={`tarjeta ${k}`}>
+            <Image src={img as ImageMetadata} alt="" width={420} height={315} format="webp" quality={70} />
+            <div class="velo"></div>
+            {k === 'proximo' && <span class="badge">Próximamente</span>}
+            {k === 'pin' && <span class="badge">Destacado</span>}
+            <div class="texto"><h3>{n}</h3><p>{s}</p></div>
+          </div>
+        ))}
+      </div>
+      <p class="nota">Versión simplificada: la tarjeta real (con modal, llama y botón «+») vive en <code>src/pages/index.astro</code>. Pendiente de extraer a componente.</p>
+    </section>
+
+    <section id="elementos">
+      <h2>Elementos</h2>
+      <div class="fila">
+        <div class="caja"><small>Etiquetas</small><span class="tag">Congreso</span> <span class="tag">Votaciones</span></div>
+        <div class="caja"><small>Enlaces</small><a class="lnk" href="#elementos">Abrir plataforma ↗</a></div>
+        <div class="caja"><small>Aviso móvil</small><div class="aviso-movil">Las plataformas muestran datos tabulares que pueden no verse bien en pantallas pequeñas.</div></div>
+        <div class="caja"><small>Resultado</small><span class="ok">Convalidado</span> <span class="ko">Cae</span></div>
+      </div>
+    </section>
+
+    <section id="proyectos">
+      <h2>Proyectos</h2>
+      <table>
+        <thead><tr><th>Proyecto</th><th>Fuentes</th><th>Fondo</th><th>Nota</th><th>Local</th></tr></thead>
+        <tbody>{proyectos.map((p) => <tr><td><b>{p.n}</b></td><td>{p.fuentes}</td><td>{p.fondo}</td><td>{p.nota}</td><td><a class="lnk" href={`http://localhost:${p.puerto}`} target="_blank" rel="noopener">:{p.puerto}</a></td></tr>)}</tbody>
+      </table>
+      <details class="comparar"><summary>Comparar cabeceras en vivo (requiere los demás servidores en marcha)</summary>
+        <div class="iframes">{proyectos.filter((p) => p.n !== 'index').map((p) => <figure><figcaption>{p.n}</figcaption><iframe src={`http://localhost:${p.puerto}`} title={p.n} loading="lazy"></iframe></figure>)}</div>
+      </details>
+    </section>
+
+    <section id="referencias">
+      <h2>Referencias</h2>
+      <p class="nota">Dónde está cada pieza en cada proyecto (rutas desde <code>Code/lopublico/</code>). Al unificar, la versión de <b>index</b> es la referencia; los demás deberían importarla o copiarla tal cual.</p>
+      <table>
+        <thead><tr><th>Proyecto</th><th>Cabecera</th><th>Pie</th><th>Logos</th><th>Producción</th></tr></thead>
+        <tbody>{refs.map((r) => <tr><td><b>{r.n}</b></td><td><code>{r.cab}</code></td><td><code>{r.pie}</code></td><td><code>{r.logo}</code></td><td>{r.url.startsWith('http') ? <a class="lnk" href={r.url} target="_blank" rel="noopener">{r.url.replace('https://', '')}</a> : r.url}</td></tr>)}</tbody>
+      </table>
+      <h3>Material de referencia</h3>
+      <ul class="pend">
+        <li><code>index/src/layouts/Layout.astro</code> — tokens globales (colores, contenedor <code>.page</code>, accesibilidad, <code>prefers-reduced-motion</code>).</li>
+        <li><code>index/astro.config.mjs</code> — definición de fuentes (Inter, Commit Mono, Lora) con <code>astro:fonts</code>.</li>
+        <li><code>index/src/components/Marca.astro</code> — «pensado para copiarse tal cual a los demás proyectos».</li>
+        <li><code>seguimiento-votaciones-senado/docs/</code> — criterios del directo de votaciones (orden, Bluesky, operación).</li>
+        <li><code>Code/memory/lopublico/MEMORY.md</code> — convenciones comunes y estado de los proyectos.</li>
+        <li>Perfiles: <a class="lnk" href="https://mastodon.social/@lopublico" target="_blank" rel="noopener">Mastodon</a> · <a class="lnk" href="https://bsky.app/profile/lopublico.es" target="_blank" rel="noopener">Bluesky</a>.</li>
+      </ul>
+    </section>
+
+    <section id="plantilla">
+      <h2>Plantilla de proyecto nuevo</h2>
+      <p class="nota">Un proyecto nuevo de Lo Público copia estas piezas de referencia, no importa un paquete:</p>
+      <table>
+        <thead><tr><th>Pieza</th><th>Archivo de referencia</th></tr></thead>
+        <tbody>
+          <tr><td>Tokens, contenedor <code>.page</code>, accesibilidad</td><td><code>index/src/layouts/Layout.astro</code></td></tr>
+          <tr><td>Fuentes (Commit Mono, Inter, Lora)</td><td><code>parlamentarios/src/styles/global.css</code> (imports @fontsource) · <code>index/astro.config.mjs</code> (astro:fonts)</td></tr>
+          <tr><td>Cabecera del subproyecto (logo propio + título + «Lo Público»)</td><td><code>parlamentarios/src/layouts/Layout.astro</code></td></tr>
+          <tr><td>Pie</td><td><code>parlamentarios/src/layouts/Layout.astro</code> (<code>.lo-footer</code>)</td></tr>
+          <tr><td>Tarjeta de proyecto (portada)</td><td><code>index/src/pages/index.astro</code> (marcado + estilos + modal)</td></tr>
+          <tr><td>Directo de votaciones</td><td><code>seguimiento-votaciones-senado/</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="pendientes">
+      <h2>Por unificar</h2>
+      <p class="nota">Combinación de marca: <b>Commit Mono + Inter + Lora</b>. {excepciones}</p>
+      <ul class="pend">{pendientes.map(([e, t]) => <li><b class={`est ${e}`}>{e}</b> {t}</li>)}</ul>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .manual { padding-top: 24px; padding-bottom: 80px; }
+  .aviso { display:inline-block; padding:3px 10px; border:1px solid var(--line-strong); border-radius:99px; font:400 11px var(--font-mono); color:var(--muted); margin-bottom:12px; }
+  h1 { font-size:32px; letter-spacing:-.03em; margin-bottom:6px; } .lead { color:var(--muted); max-width:62ch; margin-bottom:16px; }
+  h2 { font-size:20px; letter-spacing:-.02em; margin:44px 0 14px; padding-top:14px; border-top:1px solid var(--line); } h2 small { font:400 11px var(--font-mono); color:var(--muted); margin-left:8px; }
+  h3 { font:500 12px var(--font-mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:18px 0 8px; }
+  .toc { display:flex; flex-wrap:wrap; gap:6px 16px; font:400 12px var(--font-mono); color:var(--muted); } .toc a:hover { color:var(--fg); }
+  code { font:400 11px var(--font-mono); color:var(--muted); }
+  .swatches { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+  .sw { display:flex; flex-direction:column; gap:2px; } .sw i { height:52px; border:1px solid var(--line); border-radius:8px; margin-bottom:4px; } .sw b { font-weight:550; font-size:12.5px; }
+  .tipo { border:1px solid var(--line); border-radius:10px; padding:14px 18px; margin-bottom:10px; } .tipo small { color:var(--muted); font:400 11px var(--font-mono); } .tipo .g { font-size:28px; letter-spacing:-.02em; margin:4px 0; }
+  .logos { display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:12px; } figure { margin:0; text-align:center; } figcaption { font:400 10px var(--font-mono); color:var(--muted); margin-top:4px; }
+  .fila { display:flex; flex-wrap:wrap; gap:14px; } .caja { border:1px solid var(--line); border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; } .caja > small { font:400 10.5px var(--font-mono); color:var(--muted); text-transform:uppercase; }
+  .caja.ancha { width:100%; align-items:stretch; } .caja.sinpad { padding:0; overflow:hidden; }
+  .tarjetas { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+  .tarjeta { position:relative; aspect-ratio:4/3; border-radius:14px; overflow:hidden; background:#000; color:#fff; } .tarjeta img { width:100%; height:100%; object-fit:cover; }
+  .tarjeta .velo { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,0) 60%); }
+  .tarjeta .texto { position:absolute; left:14px; right:14px; bottom:12px; } .tarjeta h3 { all:unset; display:block; font-weight:600; font-size:16px; } .tarjeta p { font-size:12px; opacity:.85; }
+  .tarjeta.proximo img { filter:grayscale(1) brightness(.7); } .badge { position:absolute; top:10px; right:10px; padding:2px 9px; border-radius:99px; background:#fff; color:#000; font:500 10.5px var(--font-mono); }
+  .nota { color:var(--muted); font-size:12px; margin-top:8px; }
+  .tag { padding:2px 9px; border:1px solid var(--line-strong); border-radius:99px; font:400 11px var(--font-mono); } .lnk { text-decoration:underline; text-underline-offset:3px; }
+  .aviso-movil { background:#000; color:#fff; padding:10px 12px; font:400 11px var(--font-mono); border-radius:6px; max-width:300px; }
+  .ok, .ko { padding:3px 10px; border-radius:99px; font:500 11px var(--font-mono); } .ok { background:#e6f6eb; color:#18794e; } .ko { background:#feebec; color:#ce2c31; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; } th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; } th { font:500 11px var(--font-mono); color:var(--muted); text-transform:uppercase; }
+  .comparar { margin-top:14px; } summary { cursor:pointer; font:400 12px var(--font-mono); color:var(--muted); }
+  .iframes { display:grid; grid-template-columns:repeat(auto-fill,minmax(420px,1fr)); gap:14px; margin-top:12px; } iframe { width:100%; height:260px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  .pend { padding-left:18px; display:grid; gap:6px; } .est { font:500 10.5px var(--font-mono); padding:1px 7px; border-radius:99px; border:1px solid var(--line-strong); margin-right:4px; } .est.Hecho { background:#e6f6eb; color:#18794e; border-color:transparent; }
+</style>

@@ -1,9 +1,22 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 
+// El manual de marca solo existe en `astro dev` (/manual); no entra en el build.
+const manualSoloEnDev = {
+  name: 'manual-de-marca',
+  hooks: {
+    'astro:config:setup': ({ command, injectRoute }) => {
+      if (command === 'dev') {
+        injectRoute({ pattern: '/manual', entrypoint: './src/dev/manual.astro' });
+      }
+    },
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://lopublico.es',
+  integrations: [manualSoloEnDev],
 
   // Fuentes auto-alojadas: Astro las descarga y subsetea en el build, genera
   // métricas de fallback (sin CLS) y las sirve desde el propio dominio.
