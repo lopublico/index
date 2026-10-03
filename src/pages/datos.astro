@@ -5,7 +5,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 const datasets = [
   {
     id: 'sal-de-ahi',
-    proyecto: 'Sal de ahí',
+    titulo: 'Presencia de instituciones públicas y políticos españoles en redes sociales (Twitter/X, Bluesky, Mastodon)',
     descripcion:
       'Censo de cuentas oficiales en Twitter/X de ministerios, comunidades autónomas, ayuntamientos, empresas públicas y Cortes Generales vs alternativas en el Fediverso.',
     doi: '10.5281/zenodo.22229212',
@@ -15,7 +15,7 @@ const datasets = [
   },
   {
     id: 'parlamentarios',
-    proyecto: 'Las Cortes y sus bienes',
+    titulo: 'Declaración de bienes y rentas de los miembros del Gobierno, Congreso y Senado',
     descripcion:
       'Datos personales, patrimoniales e institucionales de los 634 miembros de las Cortes Generales y Gobierno (XV Legislatura): inmuebles, vehículos, deuda y rentas.',
     doi: '10.5281/zenodo.21944946',
@@ -45,7 +45,7 @@ const datasets = [
           {datasets.map((d) => (
             <article class="radix-card">
               <div class="radix-card-top">
-                <span class="radix-proyecto">{d.proyecto}</span>
+                <h2 class="radix-proyecto">{d.titulo}</h2>
                 {d.estado === 'proximo' ? (
                   <span class="radix-badge-proximo">En preparación</span>
                 ) : (
@@ -177,7 +177,7 @@ const datasets = [
 
   .radix-card-top {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
   }
@@ -187,6 +187,8 @@ const datasets = [
     font-size: 14px;
     font-weight: 600;
     letter-spacing: -0.015em;
+    line-height: 1.35;
+    margin: 0;
     color: var(--fg, #000000);
   }
 
@@ -199,6 +201,8 @@ const datasets = [
     letter-spacing: 0.01em;
     color: var(--muted, #6f6f6f);
     text-decoration: none;
+    flex-shrink: 0;
+    margin-top: 2px;
     transition: color 120ms ease;
   }
 
