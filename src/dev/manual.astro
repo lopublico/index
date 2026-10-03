@@ -37,7 +37,6 @@ const refs = [
   { n: 'saldeahi', url: 'https://saldeahi.lopublico.es', cab: 'saldeahi/src/components/Topbar.astro', pie: 'saldeahi/src/layouts/Layout.astro (.lo-footer)', logo: 'saldeahi/public/logos/logo0-10.png', tarj: '—' },
   { n: 'parlamentarios (incluye ¿Es rentista?, esrentista.lopublico.es)', url: 'https://lascortesysusbienes.lopublico.es', cab: 'parlamentarios/src/layouts/Layout.astro (logo según sección)', pie: 'parlamentarios/src/layouts/Layout.astro', logo: 'parlamentarios/public/logos/parlamentarios.png · esrentista.png', tarj: '—' },
   { n: 'votaciones-vivienda', url: 'https://decretomaricarmen.lopublico.es', cab: 'votaciones-vivienda/src/pages/portal.astro (.hd)', pie: 'votaciones-vivienda/src/pages/portal.astro (.ft)', logo: 'votaciones-vivienda/public/logos/logo0.webp + maricarmen.webp', tarj: '—' },
-  { n: 'seguimiento-votaciones-senado', url: '(privado, sin desplegar)', cab: '—', pie: '—', logo: '—', tarj: '— (directo genérico: src/dev-pages/en-vivo.astro)' },
 ];
 const pendientes = [
   ['Hecho', 'Tipografía: Commit Mono + Inter + Lora autoalojadas con @fontsource en saldeahi y parlamentarios (sin Google Fonts ni CDN). Pendiente: src/pages/fediverso.html de saldeahi sigue con Space Grotesk y Google Fonts.'],
@@ -144,9 +143,9 @@ const excepciones = 'index (es la propia marca, y sus tokens son la referencia) 
         <li><code>index/src/layouts/Layout.astro</code> — tokens globales (colores, contenedor <code>.page</code>, accesibilidad, <code>prefers-reduced-motion</code>).</li>
         <li><code>index/astro.config.mjs</code> — definición de fuentes (Inter, Commit Mono, Lora) con <code>astro:fonts</code>.</li>
         <li><code>index/src/components/Marca.astro</code> — «pensado para copiarse tal cual a los demás proyectos».</li>
-        <li><code>seguimiento-votaciones-senado/docs/</code> — criterios del directo de votaciones (orden, Bluesky, operación).</li>
-        <li><code>Code/memory/lopublico/MEMORY.md</code> — convenciones comunes y estado de los proyectos.</li>
-        <li>Perfiles: <a class="lnk" href="https://mastodon.social/@lopublico" target="_blank" rel="noopener">Mastodon</a> · <a class="lnk" href="https://bsky.app/profile/lopublico.es" target="_blank" rel="noopener">Bluesky</a>.</li>
+        <li>Repo <code>lopublico/seguimiento-votaciones-senado</code> (<code>docs/</code>) — criterios del directo de votaciones (orden, Bluesky, operación). Solo en GitHub.</li>
+        <li><code>Code/lopublico/memory/MEMORY.md</code> — convenciones comunes y estado de los proyectos.</li>
+        <li>Perfiles: <a class="lnk" href="https://masto.es/@lopublico.es@bsky.brid.gy" target="_blank" rel="noopener">Mastodon</a> · <a class="lnk" href="https://bsky.app/profile/lopublico.es" target="_blank" rel="noopener">Bluesky</a>.</li>
       </ul>
     </section>
 
