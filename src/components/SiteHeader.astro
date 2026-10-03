@@ -1,14 +1,18 @@
 ---
 import Marca from './Marca.astro';
+import { getEntradasBlog } from '../data/blog';
 
 interface Props {
   currentPath?: string;
 }
 const { currentPath = '/' } = Astro.props;
 
+// «Blog» solo existe si hay alguna entrada de avelrom.es etiquetada «lopublico»
+const hayBlog = (await getEntradasBlog()).length > 0;
 const navLinks = [
   { href: '/',      label: 'Inicio' },
   { href: '/datos',  label: 'Datos' },
+  ...(hayBlog ? [{ href: '/blog', label: 'Blog' }] : []),
   { href: '/about',  label: 'About' },
 ];
 ---
