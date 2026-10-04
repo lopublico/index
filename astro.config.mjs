@@ -17,6 +17,8 @@ const manualSoloEnDev = {
 export default defineConfig({
   site: 'https://lopublico.es',
   integrations: [manualSoloEnDev],
+  // Con @lopublico/ui enlazado en local (file:../ui), cuadros e iconos viven fuera del proyecto: permite leerlos en dev
+  vite: { server: { fs: { allow: ['..'] } } },
 
   // Fuentes auto-alojadas: Astro las descarga y subsetea en el build, genera
   // métricas de fallback (sin CLS) y las sirve desde el propio dominio.

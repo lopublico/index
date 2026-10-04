@@ -2,75 +2,16 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import delicias from '../assets/cuadros/delicias.jpg';
-import enrique_iii from '../assets/cuadros/enrique_iii.jpg';
-import ermita from '../assets/cuadros/ermita.jpg';
-import maricarmen from '../assets/cuadros/maricarmen_v3.jpg';
-import venecia from '../assets/cuadros/venecia.jpg';
+import catalogo from '@lopublico/ui/proyectos.json';
 
-const proyectos = [
-  {
-    id: 'sal-de-ahi',
-    nombre: 'Sal de ahí',
-    subtitulo: 'Presencia de las instituciones públicas y representantes en X vs otras alternativas federadas.',
-    descripcion: 'Presencia de las instituciones públicas y representantes en X vs otras alternativas federadas. Una herramienta para evidenciar la dependencia institucional de plataformas privadas y promover las redes federadas.',
-    etiquetas: ['Redes', 'Soberanía digital'],
-    href: 'https://saldeahi.lopublico.es',
-    proximo: false,
-    imagen: delicias,
-    alt: 'El jardín de las delicias',
-    credito: 'El jardín de las delicias, El Bosco, h. 1490',
-  },
-  {
-    id: 'decreto-maricarmen',
-    pinned: true,
-    nombre: 'Decreto Maricarmen',
-    subtitulo: '¿Quién ha votado qué? Ponles cara',
-    descripcion: 'Los 350 diputados del Congreso, uno a uno, en las votaciones del Decreto de vivienda. Voto individual, afiliación y rendición de cuentas.',
-    etiquetas: ['Congreso', 'Votaciones'],
-    href: 'https://decretomaricarmen.lopublico.es',
-    proximo: false,
-    imagen: maricarmen,
-    alt: 'Retrato de Maricarmen en su hogar',
-    credito: 'Fotografía: Retrato de Maricarmen en su hogar',
-  },
-  {
-    id: 'parlamentarios',
-    nombre: 'Las Cortes y sus bienes',
-    subtitulo: 'Declaraciones de bienes de diputados, senadores y ministros',
-    descripcion: 'Declaraciones de bienes e intereses de los 350 diputados, 265 senadores y miembros del Gobierno de la XV Legislatura. Inmuebles, vehículos, deuda y rentas en un dataset unificado.',
-    etiquetas: ['Patrimonio', 'Transparencia'],
-    href: 'https://lascortesysusbienes.lopublico.es',
-    proximo: false,
-    imagen: enrique_iii,
-    alt: 'Episodio del reinado de Enrique III de Castilla',
-    credito: 'Episodio del reinado de Enrique III de Castilla, José María Rodríguez de Losada, h. 1870',
-  },
-  {
-    id: 'es-rentista',
-    nombre: '¿Es rentista?',
-    subtitulo: 'Qué diputados y senadores declaran rentas por alquiler',
-    descripcion: 'Qué diputados y senadores declaran rentas por alquiler.',
-    etiquetas: ['Vivienda', 'Patrimonio'],
-    href: 'https://esrentista.lopublico.es',
-    proximo: false,
-    imagen: venecia,
-    alt: 'Venecia',
-    credito: 'Venecia, Hermenegildo Estevan y Fernando, 1883',
-  },
-  {
-    id: 'listas-de-espera',
-    nombre: 'Listas de Espera',
-    subtitulo: 'Cuánto se espera en sanidad, dependencia y discapacidad',
-    descripcion: 'Plazos reales de espera en sanidad, dependencia y discapacidad, desglosados por Comunidad Autónoma y actualizados con los datos oficiales disponibles.',
-    etiquetas: ['Sanidad', 'Dependencia'],
-    href: '#',
-    proximo: true,
-    imagen: ermita,
-    alt: 'La ermita de San Isidro el día de la fiesta',
-    credito: 'La ermita de San Isidro el día de la fiesta, Francisco de Goya, 1788',
-  },
-];
+// Textos, enlaces y nombre de la imagen de cada proyecto: una única fuente en @lopublico/ui (proyectos.json).
+// La imagen es un archivo de ui/imagenes/cuadros/ con ese nombre (los cuadros de la marca viven en el paquete).
+const cuadros = import.meta.glob<{ default: ImageMetadata }>('../../node_modules/@lopublico/ui/imagenes/cuadros/*', { eager: true });
+const proyectos = (catalogo as any[]).map((p) => {
+  const imagen = cuadros[`../../node_modules/@lopublico/ui/imagenes/cuadros/${p.imagen}`]?.default;
+  if (!imagen) throw new Error(`Falta ui/imagenes/cuadros/${p.imagen} (proyecto «${p.id}» de proyectos.json)`);
+  return { ...p, href: p.url, pinned: p.fijado, imagen };
+});
 
 // Los proyectos fijados (pinned) van primero; el resto conserva su orden.
 const ordenados = [...proyectos].sort((a, b) => Number(!!b.pinned) - Number(!!a.pinned));
@@ -664,17 +605,18 @@ const ordenados = [...proyectos].sort((a, b) => Number(!!b.pinned) - Number(!!a.
     transition: color 120ms, background 120ms, transform 120ms;
   }
 
+  .modal-cerrar:hover {
+    color: var(--fg, #000000);
+    background: #e8e8e8;
+    transform: scale(1.08);
+  }
+
   .modal-cerrar::after {
     content: '';
     position: absolute;
     inset: -8px;
   }
 
-  .modal-cerrar:hover {
-    color: var(--fg, #000000);
-    background: #e8e8e8;
-    transform: scale(1.08);
-  }
 
   .modal-cabecera {
     margin-bottom: 14px;

@@ -8,9 +8,9 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Marca from '../components/Marca.astro';
 import LogoCarrusel from '../components/LogoCarrusel.astro';
-import delicias from '../assets/cuadros/delicias.jpg';
-import maricarmen from '../assets/cuadros/maricarmen_v3.jpg';
-import ermita from '../assets/cuadros/ermita.jpg';
+import delicias from '@lopublico/ui/cuadros/delicias.jpg';
+import maricarmen from '@lopublico/ui/cuadros/maricarmen_v3.jpg';
+import ermita from '@lopublico/ui/cuadros/ermita.jpg';
 
 const logos = Object.entries(import.meta.glob('../assets/logos/*.png', { eager: true, import: 'default' }))
   .sort(([a], [b]) => a.localeCompare(b, 'es', { numeric: true })) as [string, ImageMetadata][];
@@ -18,7 +18,7 @@ const logos = Object.entries(import.meta.glob('../assets/logos/*.png', { eager: 
 // Tokens de index (fuente de verdad: src/layouts/Layout.astro)
 const colores = [
   ['--bg', '#ffffff', 'Fondo'], ['--fg', '#000000', 'Texto'], ['--fg-2', '#1a1a1a', 'Texto secundario'],
-  ['--muted', '#6f6f6f', 'Apagado'], ['--muted-2', '#a3a3a3', 'Apagado 2'], ['--line', '#e5e5e5', 'Línea'],
+  ['--muted', '#6f6f6f', 'Apagado'], ['--muted-2', '#767676', 'Apagado 2'], ['--line', '#e5e5e5', 'Línea'],
   ['--line-strong', '#d4d4d4', 'Línea fuerte'], ['--hover-bg', '#fafafa', 'Hover'],
 ];
 // Semánticos de los directos de votación (votaciones-vivienda): únicos colores «de datos»

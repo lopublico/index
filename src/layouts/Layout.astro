@@ -1,6 +1,8 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import { Font } from 'astro:assets';
+import Seo from '@lopublico/ui/Seo.astro';
+import AvisoMovil from '@lopublico/ui/AvisoMovil.astro';
 
 interface Props {
   title?: string;
@@ -25,29 +27,9 @@ const canonical = Astro.url.href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="canonical" href={canonical} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <Seo title={title} description={description} canonical={canonical} siteName="Lo público"
+      imagenes={[{ url: ogImage, width: 1200, height: 630 }, { url: `${siteBase}/og-cuadrada.png`, width: 1080, height: 1080 }]} />
 
-    <!-- OpenGraph -->
-    <meta property="og:type"        content="website" />
-    <meta property="og:url"         content={canonical} />
-    <meta property="og:title"       content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image"       content={ogImage} />
-    <meta property="og:image:width"  content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image"        content={`${siteBase}/og-cuadrada.png`} />
-    <meta property="og:image:width"  content="1080" />
-    <meta property="og:image:height" content="1080" />
-    <meta property="og:locale"      content="es_ES" />
-    <meta property="og:site_name"   content="Lo público" />
-
-    <!-- Twitter / X -->
-    <meta name="twitter:card"        content="summary_large_image" />
-    <meta name="twitter:title"       content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image"       content={ogImage} />
 
     <!-- Verificación Mastodon / Fediverso -->
     <link rel="me" href="https://masto.es/@lopublico.es@bsky.brid.gy" />
@@ -61,14 +43,7 @@ const canonical = Astro.url.href;
   </head>
   <body>
     <a href="#contenido-principal" class="salto-contenido">Saltar al contenido principal</a>
-    {!hideNotice && (
-      <div class="mobile-notice" id="mobile-notice" role="alert" aria-live="polite">
-        <span class="mobile-notice__text">
-          Las plataformas de Lo Público muestran datos tabulares que pueden no verse bien en pantallas pequeñas. Se recomienda acceder desde un ordenador.
-        </span>
-        <button class="mobile-notice__close" onclick="this.parentElement.remove()" aria-label="Cerrar aviso">✕</button>
-      </div>
-    )}
+    {!hideNotice && <AvisoMovil cerrable>Las plataformas de Lo Público muestran datos tabulares que pueden no verse bien en pantallas pequeñas. Se recomienda acceder desde un ordenador.</AvisoMovil>}
     <slot />
   </body>
 </html>
@@ -79,7 +54,7 @@ const canonical = Astro.url.href;
     --fg: #000000;
     --fg-2: #1a1a1a;
     --muted: #6f6f6f;
-    --muted-2: #a3a3a3;
+    --muted-2: #767676;
     --line: #e5e5e5;
     --line-strong: #d4d4d4;
     --hover-bg: #fafafa;
@@ -146,36 +121,6 @@ const canonical = Astro.url.href;
 
 
   /* ── Mobile notice ───────────────────────────────────────────────────── */
-  .mobile-notice {
-    display: none;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px var(--page-pad-sm);
-    background: var(--fg);
-    color: var(--bg);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.02em;
-    line-height: 1.5;
-  }
-
-  .mobile-notice__text { flex: 1; }
-
-  .mobile-notice__close {
-    color: var(--bg);
-    font-size: 12px;
-    flex-shrink: 0;
-    opacity: 0.6;
-    transition: opacity 120ms;
-    line-height: 1.5;
-  }
-
-  .mobile-notice__close:hover { opacity: 1; }
-
-  @media (max-width: 768px) {
-    .mobile-notice { display: flex; }
-  }
-
   :focus-visible {
     outline: 2px solid var(--fg, #000000);
     outline-offset: 2px;
